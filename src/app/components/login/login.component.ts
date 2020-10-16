@@ -1,5 +1,9 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
+import {LoginService} from '../login/login.service'
+import { ConstantPool } from '@angular/compiler';
+import swal from'sweetalert2';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -8,21 +12,35 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router: Router) {   
-     
+  public configObservable = new Subject<boolean>();
+  constructor(
+    private router: Router,
+    private service:LoginService,
+    private zone: NgZone
+    ) {   
+      this.configObservable.subscribe(value => {
+        if(value==true){
+          console.log("trueee");
+          this.goMenu();
+        }
+      })
   }
 
+  titularAlerta:string="prueba";
   @ViewChild('loginRef', {static: true }) loginElement: ElementRef;
   auth2: any;
 
   ngOnInit(){
+  
     this.googleSDK();
+    
   }
 
   prepareLoginButton() {
 
     this.auth2.attachClickHandler(this.loginElement.nativeElement, {},
       (googleUser) => {
+        
   
         let profile = googleUser.getBasicProfile();
         console.log('Token || ' + googleUser.getAuthResponse().id_token);
@@ -30,13 +48,32 @@ export class LoginComponent implements OnInit {
         console.log('Name: ' + profile.getName());
         console.log('Image URL: ' + profile.getImageUrl());
         console.log('Email: ' + profile.getEmail());
+
+        this.service.validarUsuarios(profile.getEmail()).subscribe(response=>{
+          console.log("response");
+          console.log(response);
+          this.configObservable.next(true);
+
+          this.zone.run(() => {
+            this.router.navigate(['menu']);
+        });
+        
+          }, err => {
+            console.log("error")
+            swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Usuario no registrado'
+            })
+          });
         //YOUR CODE HERE
-        this.router.navigate(['menu.component']);
-  
+        
       }, (error) => {
         console.log(JSON.stringify(error, undefined, 2));
         alert(JSON.stringify(error, undefined, 2));
       });
+
+      
   
   }
   googleSDK() {
@@ -60,6 +97,11 @@ export class LoginComponent implements OnInit {
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'google-jssdk'));
   
+  }
+
+  goMenu(){
+    console.log("go menu")
+    this.router.navigate(['menu']);
   }
 
 }

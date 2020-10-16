@@ -2,12 +2,21 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { MenuComponent } from './components/menu/menu.component';
+import { TraduccionComponent } from './components/traduccion/traduccion.component';
+import { UsuariosComponent } from './components/usuarios/usuarios.component';
+import { EdicionesComponent } from './components/ediciones/ediciones.component';
 
 const routes: Routes = [
   { path: 'login.component', component: LoginComponent },
   { path: 'menu.component', component: MenuComponent },
+  { path: 'traduccion.component', component: TraduccionComponent },
+  { path: 'usuarios.component', component: UsuariosComponent },
+  { path: 'ediciones.component', component: EdicionesComponent },
   { path: '', redirectTo: 'login.component',pathMatch:'full' },
   { path: 'menu', redirectTo: 'menu.component',pathMatch:'full' },
+  { path: 'traduccion', redirectTo: 'traduccion.component',pathMatch:'full' },
+  { path: 'usuarios', redirectTo: 'usuarios.component',pathMatch:'full' },
+  { path: 'ediciones', redirectTo: 'ediciones.component',pathMatch:'full' },
 ];
 
 @NgModule({

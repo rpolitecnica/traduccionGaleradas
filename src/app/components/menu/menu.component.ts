@@ -3,13 +3,26 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.css']
+  styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit(): void {
+recargaBandera:boolean=false;
+  constructor() { 
+   
   }
+
+  opcionesMenu=[
+    {name:"Inicio",route:"",icon:"fa fa-home"},
+    {name:"Usuarios",route:"/usuarios",icon:"fa fa-user"},
+    {name:"Traducción Galeradas",route:"/traduccion",icon:"fa fa-book"},
+    {name:"Ediciones",route:"/ediciones",icon:"fa fa-list"},
+    {name:"Acerca De",route:"app-traduccion",icon:"fa fa-info"},
+  ]
+  ngOnInit(): void {
+    
+  }
+
+
 
 }

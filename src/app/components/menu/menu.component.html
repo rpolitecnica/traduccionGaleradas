@@ -1,1 +1,20 @@
-<p>menu works!</p>
+<nav class="sidebar-navigation">
+	<ul>
+        <li class="active" *ngFor="let menu of opcionesMenu">
+            <a [routerLink]="menu.route"> <i class="{{menu.icon}}"></i></a>
+            <a [routerLink]="menu.route"><span class="tooltip">{{menu.name}}</span></a>
+			
+        </li>
+	</ul>
+</nav>
+<div>
+    <router-outlet></router-outlet>
+</div>
+<script>
+    $(document).ready(function(){
+        $('ul li').on('click', function() {
+	$('li').removeClass('active');
+	$(this).addClass('active');
+});
+    })
+</script> 

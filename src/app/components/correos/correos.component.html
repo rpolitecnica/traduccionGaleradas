@@ -1,0 +1,93 @@
+<app-menu></app-menu>
+
+<div class="row">
+    <div class="col-sm-3">
+
+    </div>
+    <div class="col-sm-6">
+        <div class="main-div">
+            <div class="panel">
+                <h2>Listado de Correos</h2>
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Nuevo Correo
+           </button>
+
+
+               <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Nuevo correo</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form  [formGroup]="formCorreo">
+            <div class="form-group row">
+              <label for="email_address" class="col-md-4 col-form-label text-md-right">Asunto</label>
+              <div class="col-md-8">
+                <input type="text" id="email_address" class="form-control" formControlName="asunto" name="email-address" required autofocus>
+              </div>
+            </div>
+          
+            <div class="form-group row">
+              <label for="email_address" class="col-md-4 col-form-label text-md-right">Mensaje</label>
+              <div class="col-md-8">
+                <input type="text" id="email_address" class="form-control"  formControlName="mensaje" name="email-address" required autofocus>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="email_address" class="col-md-4 col-form-label text-md-right">Fecha</label>
+              <div class="col-md-8">
+                <input type="text" id="email_address" class="form-control" formControlName="fecha" name="email-address" required autofocus>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <div *ngIf="!banderaEditar">
+            <button type="button" class="btn btn-primary" (click)="guardarCorreo()">Guardar</button>
+          </div>
+          <div *ngIf="banderaEditar">
+            <button type="button" class="btn btn-primary" (click)="guardarEditarCorreo()">Editar</button>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+        <table class="table table-striped table-bordered dt-responsive nowrap">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Asunto</th>
+                    <th>mensaje</th>
+                    <th>fecha</th>
+                    <th class="text-center"></th>
+                    <th class="text-center"></th>
+                </tr>
+            </thead>
+            <tr *ngFor='let correo of correos'>
+                <td>{{correo.id}}</td>
+                <td>{{correo.asunto}}</td>
+                <td>{{correo.mensaje}}</td>
+                <td>{{correo.fecha}}</td>
+                <td class="text-center">
+                    <button class="btn btn-info" (click)=editarCorreo(correo.id)> Editar</button></td>
+                     <td class="text-center">
+                       <button class="btn btn-danger" (click)="eliminarCorreo(correo.id)">Eliminar </button></td>
+            </tr>
+        </table>
+
+    </div>
+    <div class="col-sm-2">
+
+    </div>
+</div>

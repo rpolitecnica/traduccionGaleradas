@@ -11,23 +11,26 @@
                     <h2>Traducción de Galeradas</h2>
                     <p>Por favor seleccione el archivo a traducir</p>
                 </div>
-                <form id="Login">
-
+            
+                    <form  [formGroup]="formTraduccion">
                     <div class="form-group">
 
-
-                        <input type="text" class="form-control" id="inputEmail" placeholder="Nombre">
-
+                            <select name="selectPeriodo" formControlName="idEdicion" class="form-control" >
+                               <option >Seleccione la edición</option>
+                            </select> 
                     </div>
                     <div class="form-group">
                         <div class="input-group">
                             <div class="input-group-prepend">
-                              <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                              <span class="input-group-text" id="inputGroupFileAddon01" (click)="onUpload()">Subir</span>
                             </div>
                             <div class="custom-file">
-                              <input type="file" class="custom-file-input" id="inputGroupFile01"
-                                aria-describedby="inputGroupFileAddon01">
-                              <label class="custom-file-label" for="inputGroupFile01">Seleccione el archivo</label>
+                                
+                                    <input type="file" class="custom-file-input" id="inputGroupFile01"
+                                    aria-describedby="inputGroupFileAddon01" formControlName="archivo" (change)="onFileChange($event)">
+                                  <label class="custom-file-label" for="inputGroupFile01">Seleccione el archivo</label>
+                          
+                             
                             </div>
                           </div>
                     </div>

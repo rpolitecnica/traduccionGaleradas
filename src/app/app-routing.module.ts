@@ -5,6 +5,7 @@ import { MenuComponent } from './components/menu/menu.component';
 import { TraduccionComponent } from './components/traduccion/traduccion.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { EdicionesComponent } from './components/ediciones/ediciones.component';
+import { CorreosComponent } from './components/correos/correos.component';
 
 const routes: Routes = [
   { path: 'login.component', component: LoginComponent },
@@ -12,11 +13,13 @@ const routes: Routes = [
   { path: 'traduccion.component', component: TraduccionComponent },
   { path: 'usuarios.component', component: UsuariosComponent },
   { path: 'ediciones.component', component: EdicionesComponent },
+  { path: 'correos.component', component: CorreosComponent },
   { path: '', redirectTo: 'login.component',pathMatch:'full' },
   { path: 'menu', redirectTo: 'menu.component',pathMatch:'full' },
   { path: 'traduccion', redirectTo: 'traduccion.component',pathMatch:'full' },
   { path: 'usuarios', redirectTo: 'usuarios.component',pathMatch:'full' },
   { path: 'ediciones', redirectTo: 'ediciones.component',pathMatch:'full' },
+  { path: 'correos', redirectTo: 'correos.component',pathMatch:'full' },
 ];
 
 @NgModule({

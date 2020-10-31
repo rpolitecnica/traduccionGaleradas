@@ -17,6 +17,7 @@ recargaBandera:boolean=false;
     {name:"Usuarios",route:"/usuarios",icon:"fa fa-user"},
     {name:"Traducción Galeradas",route:"/traduccion",icon:"fa fa-book"},
     {name:"Ediciones",route:"/ediciones",icon:"fa fa-list"},
+    {name:"Correos",route:"/correos",icon:"fa fa-mail"},
     {name:"Acerca De",route:"app-traduccion",icon:"fa fa-info"},
   ]
   ngOnInit(): void {

@@ -10,24 +10,85 @@
                 <h2>Listado de Usuarios</h2>
             </div>
         </div>
-        <table class="table table-striped custab">
+
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Nuevo Usuario
+           </button>
+
+
+               <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Nuevo usuario</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form  [formGroup]="formUsuario">
+            <div class="form-group row">
+              <label for="email_address" class="col-md-4 col-form-label text-md-right">Nombres</label>
+              <div class="col-md-8">
+                <input type="text" id="email_address" class="form-control" formControlName="nombres" name="email-address" required autofocus>
+              </div>
+            </div>
+          
+            <div class="form-group row">
+              <label for="email_address" class="col-md-4 col-form-label text-md-right">Primer Apellido</label>
+              <div class="col-md-8">
+                <input type="text" id="email_address" class="form-control"  formControlName="primerApellido" name="email-address" required autofocus>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="email_address" class="col-md-4 col-form-label text-md-right">Segundo Apellido</label>
+              <div class="col-md-8">
+                <input type="text" id="email_address" class="form-control" formControlName="segundoApellido" name="email-address" required autofocus>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="email_address" class="col-md-4 col-form-label text-md-right">Correo Electronico</label>
+              <div class="col-md-8">
+                <input type="text" id="email_address" class="form-control" formControlName="correoElectronico" name="email-address" required autofocus>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <div *ngIf="!banderaEditar">
+            <button type="button" class="btn btn-primary" (click)="guardarUsuario()">Guardar</button>
+          </div>
+          <div *ngIf="banderaEditar">
+            <button type="button" class="btn btn-primary" (click)="guardarEditarUsuario()">Editar</button>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+        <table class="table table-striped table-bordered dt-responsive nowrap">
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Nombres</th>
                     <th>Apellidos</th>
                     <th>Correo Electrónico</th>
-                    <th class="text-center">Action</th>
+                    <th class="text-center"></th>
+                    <th class="text-center"></th>
                 </tr>
             </thead>
-            <tr>
-                <td>1</td>
-                <td>sebastian</td>
-                <td>toro cano</td>
-                <td>sebastian_toro24131@elpoli.edu.co</td>
-                <td class="text-center"><a class='btn btn-info btn-xs' href="#"><span
-                            class="glyphicon glyphicon-edit"></span> Editar</a> <a href="#"
-                        class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Eliminar</a></td>
+            <tr *ngFor='let usuario of usuarios'>
+                <td>{{usuario.id}}</td>
+                <td>{{usuario.nombres}}</td>
+                <td>{{usuario.primerApellido+" "+usuario.segundoApellido}}</td>
+                <td>{{usuario.correoElectronico}}</td>
+                <td class="text-center">
+                    <button class="btn btn-info" (click)=editarUsuario(usuario.id)> Editar</button></td>
+                     <td class="text-center">
+                       <button class="btn btn-danger" (click)="eliminarUsuario(usuario.id)">Eliminar </button></td>
             </tr>
         </table>
 

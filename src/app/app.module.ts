@@ -11,6 +11,7 @@ import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { EdicionesComponent } from './components/ediciones/ediciones.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule , ReactiveFormsModule} from '@angular/forms';
+import { CorreosComponent } from './components/correos/correos.component';
 
 
 
@@ -22,6 +23,7 @@ import { FormsModule , ReactiveFormsModule} from '@angular/forms';
     TraduccionComponent,
     UsuariosComponent,
     EdicionesComponent,
+    CorreosComponent,
   ],
   imports: [
     BrowserModule,

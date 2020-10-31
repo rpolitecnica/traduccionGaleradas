@@ -11,7 +11,8 @@ export const environment = {
   services:{
     baseUrl: `${HOST_API}/api/usuarios`,
     baseUrlEdiciones: `${HOST_API}/api/ediciones`,
-    baseUrlPeriodos: `${HOST_API}/api/periodos`
+    baseUrlPeriodos: `${HOST_API}/api/periodos`,
+    baseUrlCorreos: `${HOST_API}/api/correos`
   }
 };
 

@@ -152,6 +152,7 @@ export class EdicionesComponent implements OnInit {
     $('body').removeClass('modal-open');
     $('.modal-backdrop').remove();
   }
+  
   guardarEdicion() {
 
 

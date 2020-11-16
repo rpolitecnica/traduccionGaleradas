@@ -11,37 +11,105 @@
                     <h2>Traducción de Galeradas</h2>
                     <p>Por favor seleccione el archivo a traducir</p>
                 </div>
-            
-                    <form  [formGroup]="formTraduccion">
+
+                <form [formGroup]="formTraduccion">
                     <div class="form-group">
 
-                            <select name="selectPeriodo" formControlName="idEdicion" class="form-control" >
-                               <option >Seleccione la edición</option>
-                            </select> 
+                        <select name="selectEdicion" formControlName="idEdicion" class="form-control">
+                            <option [value]="edicion.id" *ngFor="let edicion of ediciones">{{edicion.titulo}}</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <div class="input-group">
                             <div class="input-group-prepend">
-                              <span class="input-group-text" id="inputGroupFileAddon01" (click)="onUpload()">Subir</span>
+                                <span class="input-group-text" id="inputGroupFileAddon01"
+                                    (click)="onUpload()">Subir</span>
                             </div>
                             <div class="custom-file">
-                                
-                                    <input type="file" class="custom-file-input" id="inputGroupFile01"
-                                    aria-describedby="inputGroupFileAddon01" formControlName="archivo" (change)="onFileChange($event)">
-                                  <label class="custom-file-label" for="inputGroupFile01">Seleccione el archivo</label>
-                          
-                             
+
+                                <input type="file" class="custom-file-input" id="inputGroupFile01"
+                                    aria-describedby="inputGroupFileAddon01" formControlName="archivo"
+                                    (change)="onFileChange($event)">
+                                <label class="custom-file-label" for="inputGroupFile01">Seleccione el archivo</label>
+
+
                             </div>
-                          </div>
+                        </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Traducir</button>
 
                 </form>
-               
+
             </div>
         </div>
     </div>
-    <div [innerHTML]="documento">gg</div>
-    </body>
+  
 
+
+</body>
+<div>{{jsonFinalCuerpo}}</div>
+<div class="contenedor">
+
+
+<div class="row" *ngIf="JsonGalerada">
+    <div class="col-md-12">
+        <h2>Por favor confirme el orden de los Títulos de las secciones</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Texto</th>
+                    <th scope="col">Asignación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let titulos of JsonGalerada.TituloSeccion;let i=index">
+                    <td>{{titulos}}</td>
+                    <td> <input type="text" value="{{i}}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<div class="row" *ngIf="JsonGalerada">
+    <div class="col-sm-12">
+        <h2>Por favor ingrese el subtítulo de seccion a que título de sección pertenece</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Texto</th>
+                    <th scope="col">Asignación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let SubtituloSeccion of JsonGalerada.SubtituloSeccion;let i=index">
+                    <td>{{SubtituloSeccion}}</td>
+                    <td> <input type="text" value="{{i}}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<div class="row" *ngIf="JsonGalerada">
+    <div class="col-md-12">
+        <h2>Por favor ingrese Contenido de sección a que subtítulo de sección pertenece</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Texto</th>
+                    <th scope="col">Asignación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let ContenidoSeccion of JsonGalerada.ContenidoSeccion;let i=index">
+                    <td>{{ContenidoSeccion}}</td>
+                    <td> <input type="text" value="{{i}}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+</div>
 

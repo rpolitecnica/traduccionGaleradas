@@ -12,7 +12,7 @@
         </div>
 
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-            Nuevo Correo
+            Registrar Correo Enviado
            </button>
 
 
@@ -22,7 +22,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Nuevo correo</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Registrar Correo Enviado</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -39,13 +39,14 @@
             <div class="form-group row">
               <label for="email_address" class="col-md-4 col-form-label text-md-right">Mensaje</label>
               <div class="col-md-8">
-                <input type="text" id="email_address" class="form-control"  formControlName="mensaje" name="email-address" required autofocus>
+                <textarea  id="email_address" class="form-control"  formControlName="mensaje" name="email-address" required autofocus></textarea>
+                <!--<input type="text" id="email_address" class="form-control"  formControlName="mensaje" name="email-address" required autofocus>-->
               </div>
             </div>
             <div class="form-group row">
               <label for="email_address" class="col-md-4 col-form-label text-md-right">Fecha</label>
               <div class="col-md-8">
-                <input type="text" id="email_address" class="form-control" formControlName="fecha" name="email-address" required autofocus>
+                <input type="date" id="email_address" class="form-control" formControlName="fecha" name="email-address" required autofocus>
               </div>
             </div>
           </form>

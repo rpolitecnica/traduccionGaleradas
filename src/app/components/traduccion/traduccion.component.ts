@@ -73,8 +73,23 @@ export class TraduccionComponent implements OnInit {
       //console.log(this.documento.getElementsByClassName("TituloArticulo"));
       let arrayCuerpos = new Array();
       let bodyCuerpo = { titulo: '', ContenidoCuerpo: arrayCuerpos };
+      var limiteSuperior=0;
 
-      for (var j = 3; j <= 12; j++) {
+     
+
+      for (var k = 3; k <= 50; k++) {
+        var palabra = this.documento.getElementsByClassName("WordSection" + k);
+
+        for (var x = 0; x < palabra[0].childNodes.length; x++) {
+          let textoPalabra2 = palabra[0].childNodes[x].innerText;
+          if (palabra[0].childNodes[x].className =="TituloConclusiones") {
+            limiteSuperior=k;
+            k=50;
+            break;
+        }
+      }
+    }
+      for (var j = 3; j <= limiteSuperior; j++) {
         var palabra = this.documento.getElementsByClassName("WordSection" + j);
 
         let arrayContenidos = new Array();
@@ -92,6 +107,7 @@ export class TraduccionComponent implements OnInit {
                 let bodyCuerpoTemporal = { titulo: bodyCuerpo.titulo, ContenidoCuerpo: bodyCuerpo.ContenidoCuerpo };
                 this.bodyDocumentoCompleto.push(bodyCuerpoTemporal);
                 this.jsonFinalCuerpo=JSON.stringify(this.bodyDocumentoCompleto);
+                this.JsonGalerada['BodyCuerpoCompleto'] = this.bodyDocumentoCompleto;
               }
               bodyCuerpo.titulo = palabra[0].childNodes[i].innerText;
               arrayCuerpos = new Array();
@@ -122,45 +138,37 @@ export class TraduccionComponent implements OnInit {
           }
 
 
-
-          
-
-
-
-
-
-
         }
-
-
-
       }
 
       let documentss = this.documento;
       let jsonGalleys = this.JsonGalerada;
-      /*Object.keys(this.JsonGalerada).forEach(function (key) {
-        var palabra = documentss.getElementsByClassName(key);
+      Object.keys(this.JsonGalerada).forEach(function (key) {
+        if(key!='BodyCuerpoCompleto'){
+          var palabra = documentss.getElementsByClassName(key);
 
-        if (palabra.length > 1) {
-          var array = new Array();
-          for (var i = 0; i < palabra.length; i++) {
-            if (palabra[i].innerText !== " ") {
-              let texto: String;
-              texto = palabra[i].innerText.trim();
-              if (texto !== "") {
-                array.push(texto);
+          if (palabra.length > 1) {
+            var array = new Array();
+            for (var i = 0; i < palabra.length; i++) {
+              if (palabra[i].innerText !== " ") {
+                let texto: String;
+                texto = palabra[i].innerText.trim();
+                if (texto !== "") {
+                  array.push(texto);
+                }
               }
             }
-          }
-          jsonGalleys[key] = array;
-        } else {
-          if (palabra[0].innerText !== " ") {
-            var textoPalabra = palabra[0].innerText;
-            jsonGalleys[key] = textoPalabra;
-          }
+            jsonGalleys[key] = array;
+          } else {
+            if (palabra[0].innerText !== " ") {
+              var textoPalabra = palabra[0].innerText;
+              jsonGalleys[key] = textoPalabra;
+            }
+        }
+        
         }
 
-      })*/
+      })
       console.log(jsonGalleys);
       this.JsonGalerada = jsonGalleys;
       this.jsonPrueba = JSON.stringify(jsonGalleys);
@@ -190,15 +198,20 @@ export class TraduccionComponent implements OnInit {
       'ResumenCuerpo': '',
       'PalabrasClavesTituloCar': '',
       'FechasEsp': '',
+      'FechaIngles': '',
       'TituloArticuloIngles': '',
       'TituloAbstract': '',
       'Abstract': '',
       'TituloKeywordsCar': '',
-      'TItuloIntroduccin': '',
-      'ContenidoIntroduccin': '',
-      'TituloSeccion': '',
-      'SubtituloSeccion': '',
-      'ContenidoSeccion': ''
+      'TituloIntroduccion': '',
+      'ContenidoIntroduccion': '',
+      'TituloConclusiones': '',
+      'ContenidoConclusiones': '',
+      'TituloAgradecimientos': '',
+      'ContenidoAgradecimientos': '',
+      'TituloReferencias': '',
+      'referencias': '',
+      'BodyCuerpoCompleto':''
     }
 
     this.JsonDocumento = {

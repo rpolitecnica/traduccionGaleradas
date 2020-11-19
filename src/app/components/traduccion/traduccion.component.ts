@@ -11,6 +11,7 @@ import { TraduccionService } from '../traduccion/traduccion.service'
   styleUrls: ['./traduccion.component.css']
 })
 
+
 export class TraduccionComponent implements OnInit {
 
 
@@ -26,7 +27,7 @@ export class TraduccionComponent implements OnInit {
 
   objetoDocumento: Array<Documento>;
 
-
+   
   JsonDocumento: any = null;;
   bodyDocumento = new Array();
   bodyDocumentoCompleto = new Array();
@@ -61,13 +62,14 @@ export class TraduccionComponent implements OnInit {
       console.log("response ",res);
     })*/
 
-    /*this.traduccionService.traducirFile().subscribe((res)=>{
-      console.log("response ",res);
-    })*/
+   
     this.crearJson();
     let fileReader = new FileReader();
+    
+    fileReader.readAsText(this.file, 'windows-1252');
     fileReader.onload = (e) => {
       this.documento = fileReader.result;
+      
       //console.log(fileReader.result);
       this.documento = new DOMParser().parseFromString(this.documento, 'text/html');
       //console.log(this.documento.getElementsByClassName("TituloArticulo"));
@@ -172,6 +174,10 @@ export class TraduccionComponent implements OnInit {
       console.log(jsonGalleys);
       this.JsonGalerada = jsonGalleys;
       this.jsonPrueba = JSON.stringify(jsonGalleys);
+
+      this.traduccionService.traducirFile(this.jsonPrueba).subscribe((res)=>{
+        console.log("response ",res);
+      })
     }
     fileReader.readAsText(this.file);
   }
@@ -191,18 +197,21 @@ export class TraduccionComponent implements OnInit {
 
   crearJson() {
     this.JsonGalerada = {
+      'Encabezado1':'',
       'TituloArticulo': 'ss',
       'Autores': '',
       'InformacionAutores': [],
       'ResumenTitulo': '',
       'ResumenCuerpo': '',
       'PalabrasClavesTituloCar': '',
+      'PalabrasClavesCar': '',
       'FechasEsp': '',
       'FechaIngles': '',
       'TituloArticuloIngles': '',
       'TituloAbstract': '',
       'Abstract': '',
       'TituloKeywordsCar': '',
+      'KeywordsCar': '',
       'TituloIntroduccion': '',
       'ContenidoIntroduccion': '',
       'TituloConclusiones': '',

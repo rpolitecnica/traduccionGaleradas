@@ -15,9 +15,9 @@ export class TraduccionService {
     return this.httClient.post(urlApi,formData);
   }
 
-  traducirFile(){
+  traducirFile(JsonGalerada:String){
     let urlApi='http://localhost:3000/api/traducir';
-    return this.httClient.post(urlApi,"tra");
+    return this.httClient.post(urlApi,JsonGalerada);
   }
 
   obtenerEdiciones(){

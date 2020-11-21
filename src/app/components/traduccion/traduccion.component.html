@@ -15,8 +15,8 @@
                 <form [formGroup]="formTraduccion">
                     <div class="form-group">
 
-                        <select name="selectEdicion" formControlName="idEdicion" class="form-control">
-                            <option [value]="edicion.id" *ngFor="let edicion of ediciones">{{edicion.titulo}}</option>
+                        <select name="selectEdicion" formControlName="idEdicion" class="form-control" [(ngModel)]="edicionSeleccionada">
+                            <option [ngValue]="edicion" *ngFor="let edicion of ediciones">{{edicion.titulo}}</option>
                         </select>
                     </div>
                     <div class="form-group">

@@ -12,7 +12,8 @@ export const environment = {
     baseUrl: `${HOST_API}/api/usuarios`,
     baseUrlEdiciones: `${HOST_API}/api/ediciones`,
     baseUrlPeriodos: `${HOST_API}/api/periodos`,
-    baseUrlCorreos: `${HOST_API}/api/correos`
+    baseUrlCorreos: `${HOST_API}/api/correos`,
+    baseUrlTraducciones: `${HOST_API}/api/traducciones`,
   }
 };
 

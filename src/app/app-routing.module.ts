@@ -6,6 +6,7 @@ import { TraduccionComponent } from './components/traduccion/traduccion.componen
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { EdicionesComponent } from './components/ediciones/ediciones.component';
 import { CorreosComponent } from './components/correos/correos.component';
+import { ListadoTraduccionesComponent } from './components/listado-traducciones/listado-traducciones.component';
 
 const routes: Routes = [
   { path: 'login.component', component: LoginComponent },
@@ -14,12 +15,14 @@ const routes: Routes = [
   { path: 'usuarios.component', component: UsuariosComponent },
   { path: 'ediciones.component', component: EdicionesComponent },
   { path: 'correos.component', component: CorreosComponent },
+  { path: 'listado-traducciones.component', component: ListadoTraduccionesComponent },
   { path: '', redirectTo: 'login.component',pathMatch:'full' },
   { path: 'menu', redirectTo: 'menu.component',pathMatch:'full' },
   { path: 'traduccion', redirectTo: 'traduccion.component',pathMatch:'full' },
   { path: 'usuarios', redirectTo: 'usuarios.component',pathMatch:'full' },
   { path: 'ediciones', redirectTo: 'ediciones.component',pathMatch:'full' },
   { path: 'correos', redirectTo: 'correos.component',pathMatch:'full' },
+  { path: 'listado-traducciones', redirectTo: 'listado-traducciones.component',pathMatch:'full' },
 ];
 
 @NgModule({

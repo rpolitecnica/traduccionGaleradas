@@ -1,4 +1,5 @@
 export interface Ediciones{
+    idEdicion:string;
     id:string,
     titulo:string;
     volumen:number;

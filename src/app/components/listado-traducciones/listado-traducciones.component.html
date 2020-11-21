@@ -1,0 +1,41 @@
+<app-menu></app-menu>
+
+<div class="row">
+    <div class="col-sm-3">
+
+    </div>
+    <div class="col-sm-6">
+        <div class="main-div">
+            <div class="panel">
+                <h2>Listado de Traducciones Realizadas</h2>
+            </div>
+        </div>
+
+
+
+        <table class="table table-striped table-bordered dt-responsive nowrap">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Edicion</th>
+                    <th>Título Articulo</th>
+                    <th>Fecha Traduccion</th>
+                    <th class="text-center"></th>
+                    <th class="text-center"></th>
+                </tr>
+            </thead>
+            <tr *ngFor='let traduccion of traducciones'>
+                <td>{{traduccion.id}}</td>
+                <td>{{traduccion.idEdicion}}</td>
+                <td></td>
+                <td>{{traduccion.fechaTraduccion}}</td>
+                <td class="text-center">
+                    <button class="btn btn-info" (click)=descargarDocumento(traduccion.xmlTraduccion)> Visualizar documento</button></td>
+            </tr>
+        </table>
+
+    </div>
+    <div class="col-sm-2">
+
+    </div>
+</div>

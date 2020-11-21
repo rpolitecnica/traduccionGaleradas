@@ -23,6 +23,7 @@ export class TraduccionComponent implements OnInit {
   JsonGalerada: any = null;;
   ediciones: Array<Ediciones>;
   jsonPrueba: String;
+  edicionSeleccionada:Ediciones;
 
 
   objetoDocumento: Array<Documento>;
@@ -61,12 +62,13 @@ export class TraduccionComponent implements OnInit {
     this.traduccionService.uploadFile(formData).subscribe((res)=>{
       console.log("response ",res);
     })*/
-
+console.log("edicion");
+    console.log(this.edicionSeleccionada);
    
     this.crearJson();
     let fileReader = new FileReader();
     
-    fileReader.readAsText(this.file, 'windows-1252');
+    //fileReader.readAsText(this.file, 'windows-1252');
     fileReader.onload = (e) => {
       this.documento = fileReader.result;
       
@@ -146,7 +148,7 @@ export class TraduccionComponent implements OnInit {
       let documentss = this.documento;
       let jsonGalleys = this.JsonGalerada;
       Object.keys(this.JsonGalerada).forEach(function (key) {
-        if(key!='BodyCuerpoCompleto'){
+        if(key!='BodyCuerpoCompleto' && key!='InformacionEdicion'){
           var palabra = documentss.getElementsByClassName(key);
 
           if (palabra.length > 1) {
@@ -171,6 +173,7 @@ export class TraduccionComponent implements OnInit {
         }
 
       })
+      jsonGalleys['InformacionEdicion']=this.edicionSeleccionada;
       console.log(jsonGalleys);
       this.JsonGalerada = jsonGalleys;
       this.jsonPrueba = JSON.stringify(jsonGalleys);
@@ -220,7 +223,8 @@ export class TraduccionComponent implements OnInit {
       'ContenidoAgradecimientos': '',
       'TituloReferencias': '',
       'referencias': '',
-      'BodyCuerpoCompleto':''
+      'BodyCuerpoCompleto':'',
+      'InformacionEdicion':[]
     }
 
     this.JsonDocumento = {

@@ -68,20 +68,44 @@ export class UsuariosComponent implements OnInit {
 
   }
 
-  guardarUsuario(){
-    this.ocultarmodal();
-    this.service.guardarUsuario(this.formUsuario.value).subscribe((response)=>{
-      console.log("respuyesta " + response)
-      swal.fire({
-        icon: 'success',
-        title: 'Correcto',
-        text: 'Usuario almacenado correctamente'
-      });
-      this.obtenerUsuarios();
 
-    })
+  borrarCampos(){
+    this.formUsuario.controls['id'].patchValue('');
+    this.formUsuario.controls['nombres'].patchValue('');
+    this.formUsuario.controls['primerApellido'].patchValue('');
+    this.formUsuario.controls['segundoApellido'].patchValue('');
+    this.formUsuario.controls['correoElectronico'].patchValue('');
+    
+    this.banderaEditar=false;
+  }
+  guardarUsuario(){
+    if (this.formUsuario.status == "VALID") {
+      this.ocultarmodal();
+      this.service.guardarUsuario(this.formUsuario.value).subscribe((response)=>{
+        console.log("respuyesta " + response)
+  
+        this.borrarCampos();
+        swal.fire({
+          icon: 'success',
+          title: 'Correcto',
+          text: 'Registro almacenado correctamente'
+        });
+        this.obtenerUsuarios();
+  
+      })
+    }else{
+      swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Debes completar todos los campos'
+      });
+    }
+    
   }
 
+
+
+ 
   eliminarUsuario(id: string) {
     console.log("eliminar "+id);
     swal.fire({
@@ -108,22 +132,31 @@ export class UsuariosComponent implements OnInit {
   }
 
   guardarEditarUsuario() {
-    if (this.banderaEditar == true) {
-      console.log("id editar" + this.formUsuario.controls['id'].value);
-      console.log(this.formUsuario.value);
-      this.ocultarmodal();
-      this.service.editarUsuario(this.formUsuario.controls['id'].value, this.formUsuario.value).subscribe((response) => {
-        console.log(response);
-        swal.fire({
-          icon: 'success',
-          title: 'Correcto',
-          text: 'Usuario editada correctamente'
-        });
-
-        this.obtenerUsuarios();
-      })
-
+    if (this.formUsuario.status == "VALID") {
+      if (this.banderaEditar == true) {
+        console.log("id editar" + this.formUsuario.controls['id'].value);
+        console.log(this.formUsuario.value);
+        this.ocultarmodal();
+        this.service.editarUsuario(this.formUsuario.controls['id'].value, this.formUsuario.value).subscribe((response) => {
+          console.log(response);
+          swal.fire({
+            icon: 'success',
+            title: 'Correcto',
+            text: 'Registro editado correctamente'
+          });
+  
+          this.obtenerUsuarios();
+        })
+  
+      }
+    }else{
+      swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Debes completar todos los campos'
+      });
     }
+  
   }
   
 

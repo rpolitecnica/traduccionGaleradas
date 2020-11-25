@@ -12,4 +12,8 @@ export class ListadoTraduccionesService {
   obtenerTraducciones(){
     return this.httClient.get(environment.services.baseUrlTraducciones)
    };
+
+   eliminarTraduccion(id:string){
+    return this.httClient.delete(environment.services.baseUrlTraducciones+"/"+id);
+   };
 }

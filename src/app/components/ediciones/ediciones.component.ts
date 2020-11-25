@@ -110,22 +110,31 @@ export class EdicionesComponent implements OnInit {
   }
 
   guardarEditarEdicion() {
-    if (this.banderaEditar == true) {
-      console.log("id editar" + this.formEdicion.controls['id'].value);
-      console.log(this.formEdicion.value);
-      this.ocultarmodal();
-      this.edicionesService.editarEdicion(this.formEdicion.controls['id'].value, this.formEdicion.value).subscribe((response) => {
-        console.log(response);
-        swal.fire({
-          icon: 'success',
-          title: 'Correcto',
-          text: 'Edición editada correctamente'
-        });
-
-        this.obtenerEdiciones();
-      })
-
+    if (this.formEdicion.status == "VALID") {
+      if (this.banderaEditar == true) {
+        console.log("id editar" + this.formEdicion.controls['id'].value);
+        console.log(this.formEdicion.value);
+        this.ocultarmodal();
+        this.edicionesService.editarEdicion(this.formEdicion.controls['id'].value, this.formEdicion.value).subscribe((response) => {
+          console.log(response);
+          swal.fire({
+            icon: 'success',
+            title: 'Correcto',
+            text: 'Registro editado correctamente'
+          });
+  
+          this.obtenerEdiciones();
+        })
+  
+      }
+    }else{
+      swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Debes completar todos los campos'
+      });
     }
+ 
   }
 
 
@@ -153,24 +162,45 @@ export class EdicionesComponent implements OnInit {
     $('.modal-backdrop').remove();
   }
   
+
+
+  borrarCampos(){
+    this.formEdicion.controls['id'].patchValue('');
+    this.formEdicion.controls['titulo'].patchValue('');
+    this.formEdicion.controls['volumen'].patchValue('');
+    this.formEdicion.controls['numero'].patchValue('');
+    this.formEdicion.controls['idPeriodo'].patchValue('');
+    this.formEdicion.controls['fechaPublicacion'].patchValue('');
+    this.banderaEditar=false;
+  }
+
   guardarEdicion() {
 
+    if (this.formEdicion.status == "VALID") {
 
-
-    this.ocultarmodal();
-    console.log(this.formEdicion.value);
-    this.edicionesService.guardarEdicion(this.formEdicion.value).subscribe((response) => {
-      console.log("respuyesta " + response)
-      swal.fire({
-        icon: 'success',
-        title: 'Correcto',
-        text: 'Edición almacenada correctamente'
+      this.ocultarmodal();
+      console.log(this.formEdicion.value);
+      this.edicionesService.guardarEdicion(this.formEdicion.value).subscribe((response) => {
+        console.log("respuyesta " + response)
+        this.borrarCampos();
+        swal.fire({
+          icon: 'success',
+          title: 'Correcto',
+          text: 'Registro almacenado correctamente'
+        });
+  
+        this.obtenerEdiciones();
+  
+  
       });
+    }else{
+      swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Debes completar todos los campos'
+      });
+    }
 
-      this.obtenerEdiciones();
-
-
-    });
 
   }
 

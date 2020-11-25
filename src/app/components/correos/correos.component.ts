@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import {Correos} from '../models/correos.model'
+import { Correos } from '../models/correos.model'
 import { CorreosService } from '../correos/correos.service';
 import swal from 'sweetalert2';
 declare var $: any;
@@ -16,7 +16,7 @@ export class CorreosComponent implements OnInit {
   formCorreo: FormGroup;
   public correoEditar: Correos;
   banderaEditar: boolean = false;
-  constructor( private service:CorreosService,
+  constructor(private service: CorreosService,
     private fb: FormBuilder,) { }
 
   ngOnInit(): void {
@@ -30,11 +30,11 @@ export class CorreosComponent implements OnInit {
   }
 
 
-  obtenerCorreos(){
-    this.service.obtenerCorreos().subscribe((data:any)=>{
-      console.log("response usuarios"+data);
-     this.correos=data;
-     
+  obtenerCorreos() {
+    this.service.obtenerCorreos().subscribe((data: any) => {
+      console.log("response usuarios" + data);
+      this.correos = data;
+
     });
   }
 
@@ -49,7 +49,7 @@ export class CorreosComponent implements OnInit {
       'asunto': this.correoEditar.asunto,
       'mensaje': this.correoEditar.mensaje,
       'fecha': this.correoEditar.fecha,
-      
+
     });
 
     $('#exampleModal').modal('show');
@@ -57,22 +57,45 @@ export class CorreosComponent implements OnInit {
 
   }
 
-  guardarCorreo(){
-    this.ocultarmodal();
-    this.service.guardarCorreo(this.formCorreo.value).subscribe((response)=>{
-      console.log("respuyesta " + response)
-      swal.fire({
-        icon: 'success',
-        title: 'Correcto',
-        text: 'Usuario almacenado correctamente'
-      });
-      this.obtenerCorreos();
 
-    })
+  validarCampos() {
+    if (this.formCorreo.status == "INVALID") {
+
+      swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Debes completar todos los campos'
+      });
+
+      stop();
+    }
+  }
+
+  guardarCorreo() {
+    if (this.formCorreo.status == "VALID") {
+      this.ocultarmodal();
+      this.service.guardarCorreo(this.formCorreo.value).subscribe((response) => {
+        console.log("respuyesta " + response)
+        swal.fire({
+          icon: 'success',
+          title: 'Correcto',
+          text: 'Registro almacenado correctamente'
+        });
+        this.obtenerCorreos();
+
+      })
+    } else {
+      swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Debes completar todos los campos'
+      });
+    }
+
   }
 
   eliminarCorreo(id: string) {
-    console.log("eliminar "+id);
+    console.log("eliminar " + id);
     swal.fire({
       title: 'Estás Seguro?',
       text: "No podrás revertir esto",
@@ -97,28 +120,51 @@ export class CorreosComponent implements OnInit {
   }
 
   guardarEditarCorreo() {
-    if (this.banderaEditar == true) {
-      console.log("id editar" + this.formCorreo.controls['id'].value);
-      console.log(this.formCorreo.value);
-      this.ocultarmodal();
-      this.service.editarCorreo(this.formCorreo.controls['id'].value, this.formCorreo.value).subscribe((response) => {
-        console.log(response);
-        swal.fire({
-          icon: 'success',
-          title: 'Correcto',
-          text: 'Usuario editada correctamente'
-        });
-
-        this.obtenerCorreos();
-      })
-
+    if (this.formCorreo.status == "VALID") {
+      if (this.banderaEditar == true) {
+        console.log("id editar" + this.formCorreo.controls['id'].value);
+        console.log(this.formCorreo.value);
+        this.ocultarmodal();
+        this.service.editarCorreo(this.formCorreo.controls['id'].value, this.formCorreo.value).subscribe((response) => {
+          console.log(response);
+  
+          this.borrarCampos();
+          swal.fire({
+            icon: 'success',
+            title: 'Correcto',
+            text: 'Registro editado correctamente'
+          });
+  
+          this.obtenerCorreos();
+        })
+  
+      }
+    }else{
+      swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Debes completar todos los campos'
+      });
     }
+    
+
   }
 
-  ocultarmodal(){
+
+  borrarCampos() {
+    this.formCorreo.controls['id'].patchValue('');
+    this.formCorreo.controls['asunto'].patchValue('');
+    this.formCorreo.controls['mensaje'].patchValue('');
+    this.formCorreo.controls['fecha'].patchValue('');
+    this.banderaEditar = false;
+  }
+
+
+  ocultarmodal() {
     $('#exampleModal').modal('hide');
     $('body').removeClass('modal-open');
     $('.modal-backdrop').remove();
+
   }
 
 }

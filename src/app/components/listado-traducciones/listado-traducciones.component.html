@@ -1,10 +1,8 @@
 <app-menu></app-menu>
 
 <div class="row">
-    <div class="col-sm-3">
 
-    </div>
-    <div class="col-sm-6">
+    <div class="col-sm-12">
         <div class="main-div">
             <div class="panel">
                 <h2>Listado de Traducciones Realizadas</h2>
@@ -18,8 +16,10 @@
                 <tr>
                     <th>ID</th>
                     <th>Edicion</th>
-                    <th>Título Articulo</th>
+                    <th>Título Edición</th>
+                    <th>Título Artículo</th>
                     <th>Fecha Traduccion</th>
+                    <th class="text-center"></th>
                     <th class="text-center"></th>
                     <th class="text-center"></th>
                 </tr>
@@ -27,15 +27,19 @@
             <tr *ngFor='let traduccion of traducciones'>
                 <td>{{traduccion.id}}</td>
                 <td>{{traduccion.idEdicion}}</td>
-                <td></td>
+                <td>{{traduccion.titulo}}</td>
+                <td>{{traduccion.tituloArticulo}}</td>
                 <td>{{traduccion.fechaTraduccion}}</td>
                 <td class="text-center">
-                    <button class="btn btn-info" (click)=descargarDocumento(traduccion.xmlTraduccion)> Visualizar documento</button></td>
+                    <button class="btn btn-info" (click)=visualizarDocumento(traduccion.xmlTraduccion)> Visualizar
+                        documento XML</button></td>
+                        <td class="text-center">
+                            <button class="btn btn-info" (click)=visualizarDocumentoHTML(traduccion.xmlTraduccion)> Visualizar
+                                documento HTML</button></td>
+                <td class="text-center">
+                    <button class="btn btn-danger" (click)="eliminarTraduccion(traduccion.id)">Eliminar </button></td>
             </tr>
         </table>
-
-    </div>
-    <div class="col-sm-2">
 
     </div>
 </div>

@@ -5,6 +5,9 @@ import { Ediciones } from '../models/ediciones.model';
 import { BodyDocumento, ContenidoCuerpo, Documento } from '../models/documento.model';
 import { TraduccionService } from '../traduccion/traduccion.service'
 
+import swal from 'sweetalert2';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-traduccion',
   templateUrl: './traduccion.component.html',
@@ -38,7 +41,7 @@ export class TraduccionComponent implements OnInit {
 
 
   constructor(
-    private fb: FormBuilder, private traduccionService: TraduccionService
+    private fb: FormBuilder, private traduccionService: TraduccionService,private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -55,14 +58,21 @@ export class TraduccionComponent implements OnInit {
 
   onUpload() {
     console.log("uploand");
-    /*let formData= new FormData();
+    if(this.formTraduccion.controls['archivo'].value==null || this.formTraduccion.controls['idEdicion'].value==null)  {
+      swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Debes completar todos los campos'
+      });
+    }else {
+/*let formData= new FormData();
     for(let i=0;i<this.uploadedFiles.length;i++){
       formData.append("uploads[]",this.uploadedFiles[i],this.uploadedFiles[i].name);
     }
     this.traduccionService.uploadFile(formData).subscribe((res)=>{
       console.log("response ",res);
     })*/
-console.log("edicion");
+    console.log("edicion");
     console.log(this.edicionSeleccionada);
    
     this.crearJson();
@@ -81,7 +91,7 @@ console.log("edicion");
 
      
 
-      for (var k = 3; k <= 50; k++) {
+      for (var k = 2; k <= 50; k++) {
         var palabra = this.documento.getElementsByClassName("WordSection" + k);
 
         for (var x = 0; x < palabra[0].childNodes.length; x++) {
@@ -93,7 +103,7 @@ console.log("edicion");
         }
       }
     }
-      for (var j = 3; j <= limiteSuperior; j++) {
+      for (var j = 2; j <= limiteSuperior; j++) {
         var palabra = this.documento.getElementsByClassName("WordSection" + j);
 
         let arrayContenidos = new Array();
@@ -149,6 +159,7 @@ console.log("edicion");
       let jsonGalleys = this.JsonGalerada;
       Object.keys(this.JsonGalerada).forEach(function (key) {
         if(key!='BodyCuerpoCompleto' && key!='InformacionEdicion'){
+          console.log(key);
           var palabra = documentss.getElementsByClassName(key);
 
           if (palabra.length > 1) {
@@ -180,9 +191,21 @@ console.log("edicion");
 
       this.traduccionService.traducirFile(this.jsonPrueba).subscribe((res)=>{
         console.log("response ",res);
+        swal.fire({
+          icon: 'success',
+          title: 'Correcto',
+          text: 'Traducción realizada correctamente.'
+        });
+
+        //this.router.navigate(['listado-traducciones']);
       })
+
+
     }
     fileReader.readAsText(this.file);
+    }
+    
+    
   }
   onFileChange(e) {
     console.log('FileChange', e);
@@ -200,7 +223,7 @@ console.log("edicion");
 
   crearJson() {
     this.JsonGalerada = {
-      'Encabezado1':'',
+      'DOI':'',
       'TituloArticulo': 'ss',
       'Autores': '',
       'InformacionAutores': [],

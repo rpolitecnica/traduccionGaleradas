@@ -49,13 +49,15 @@ export class LoginComponent implements OnInit {
         console.log('Image URL: ' + profile.getImageUrl());
         console.log('Email: ' + profile.getEmail());
 
+        sessionStorage.setItem('email', profile.getEmail());
+
         this.service.validarUsuarios(profile.getEmail()).subscribe(response=>{
           console.log("response");
           console.log(response);
           this.configObservable.next(true);
 
           this.zone.run(() => {
-            this.router.navigate(['menu']);
+            this.router.navigate(['bienvenida']);
         });
         
           }, err => {

@@ -13,13 +13,13 @@ recargaBandera:boolean=false;
   }
 
   opcionesMenu=[
-    {name:"Inicio",route:"",icon:"fa fa-home"},
+    {name:"Inicio",route:"/bienvenida",icon:"fa fa-home"},
     {name:"Usuarios",route:"/usuarios",icon:"fa fa-user"},
     {name:"Traducción Galeradas",route:"/traduccion",icon:"fa fa-book"},
     {name:"Listado Traducciones",route:"/listado-traducciones",icon:"fa fa-history"},
     {name:"Ediciones",route:"/ediciones",icon:"fa fa-list"},
     {name:"Correos",route:"/correos",icon:"fa fa-envelope"},
-    {name:"Acerca De",route:"app-traduccion",icon:"fa fa-info"},
+    {name:"Cerrar Sesión",route:"/login.component",icon:"fa fa-sign-out"},
   ]
   ngOnInit(): void {
     

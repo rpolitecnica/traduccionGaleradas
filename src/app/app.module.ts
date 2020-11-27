@@ -13,6 +13,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule , ReactiveFormsModule} from '@angular/forms';
 import { CorreosComponent } from './components/correos/correos.component';
 import { ListadoTraduccionesComponent } from './components/listado-traducciones/listado-traducciones.component';
+import { BienvenidaComponent } from './components/bienvenida/bienvenida.component';
 
 
 
@@ -26,6 +27,7 @@ import { ListadoTraduccionesComponent } from './components/listado-traducciones/
     EdicionesComponent,
     CorreosComponent,
     ListadoTraduccionesComponent,
+    BienvenidaComponent,
   ],
   imports: [
     BrowserModule,

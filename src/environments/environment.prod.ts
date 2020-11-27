@@ -1,3 +1,13 @@
+const getUrl = window.location;
+const HOST_API = 'http://localhost:3000';
 export const environment = {
-  production: true
+  production: true,
+  HOST_API,
+  services:{
+    baseUrl: `${HOST_API}/api/usuarios`,
+    baseUrlEdiciones: `${HOST_API}/api/ediciones`,
+    baseUrlPeriodos: `${HOST_API}/api/periodos`,
+    baseUrlCorreos: `${HOST_API}/api/correos`,
+    baseUrlTraducciones: `${HOST_API}/api/traducciones`,
+  }
 };

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ListadoTraduccionesService } from '../listado-traducciones/listado-traducciones.service';
-
+import { TraduccionService } from '../traduccion/traduccion.service'
 import { Traducciones } from '../models/traducciones.model';
 import swal from 'sweetalert2';
+import { Ediciones } from '../models/ediciones.model';
 declare var $: any;
 @Component({
   selector: 'app-listado-traducciones',
@@ -14,7 +15,11 @@ export class ListadoTraduccionesComponent implements OnInit {
 
   formTraduccion: FormGroup;
   traducciones: Array<Traducciones>;
-  constructor(private fb: FormBuilder, private listadoTraducciones: ListadoTraduccionesService) { }
+  ediciones: Array<Ediciones>;
+  edicionSeleccionada:Ediciones;
+  idTraduccion:string;
+  idEdicion:string;
+  constructor(private fb: FormBuilder, private listadoTraducciones: ListadoTraduccionesService,private traduccionService: TraduccionService,) { }
 
   ngOnInit(): void {
 
@@ -24,6 +29,7 @@ export class ListadoTraduccionesComponent implements OnInit {
       'titulo': [null],
     });
     this.obtenerTraducciones();
+    this.obtenerEdiciones();
   }
 
 
@@ -31,6 +37,12 @@ export class ListadoTraduccionesComponent implements OnInit {
     this.listadoTraducciones.obtenerTraducciones().subscribe((data: any) => {
       console.log("listadoTraducciones " + data[0].titulo);
       this.traducciones = data;
+    });
+  }
+  obtenerEdiciones() {
+    this.traduccionService.obtenerEdiciones().subscribe((data: any) => {
+      console.log("listado " + data[0].titulo);
+      this.ediciones = data;
     });
   }
   
@@ -49,13 +61,34 @@ export class ListadoTraduccionesComponent implements OnInit {
   borrarCampos(){
 
   }
-  guardarTraduccion(){
+  guardarEdicionTraduccion(){
+    console.log(this.edicionSeleccionada);
+    this.ocultarmodal();
+    this.listadoTraducciones.modificarTraduccion(this.idTraduccion,this.edicionSeleccionada).subscribe((response) => {
+      console.log(response);
+      swal.fire({
+        icon: 'success',
+        title: 'Correcto',
+        text: 'Registro editado correctamente'
+      });
 
+      this.obtenerTraducciones();
+    })
   }
 
-  editarTraduccion(){
+  editarTraduccion(idTraduccion:string,idEdicion:string){
+    this.idTraduccion=idTraduccion;
+    this.idEdicion=idEdicion;
     $('#exampleModal').modal('show');
+
   }
+
+  ocultarmodal(){
+    $('#exampleModal').modal('hide');
+    $('body').removeClass('modal-open');
+    $('.modal-backdrop').remove();
+  }
+
   eliminarTraduccion(id: string) {
 
     console.log("eliminar " + id);

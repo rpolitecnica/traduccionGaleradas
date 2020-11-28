@@ -48,7 +48,7 @@
                 <label for="email_address" class="col-md-4 col-form-label text-md-right">Periodo</label>
                 <div class="col-md-6">
                   <select name="selectPeriodo" formControlName="idPeriodo" class="form-control">
-                     <option [value]="periodo.id" *ngFor="let periodo of periodos">{{periodo.descripcion}}</option>
+                     <option [value]="periodo.id" *ngFor="let periodo of periodos" [selected]="periodo.id === id">{{periodo.descripcion}}</option>
                   </select>
                 </div>
               </div>
@@ -94,7 +94,7 @@
           <td>{{edicion.descripcion}}</td>
           <td>{{edicion.fechaPublicacion}}</td>
           <td class="text-center">
-            <button class="btn btn-info" (click)=editarEdicion(edicion.idEdicion)> Editar</button></td>
+            <button class="btn btn-info" (click)=editarEdicion(edicion.idEdicion,edicion.idPeriodo)> Editar</button></td>
              <td class="text-center">
                <button class="btn btn-danger" (click)="eliminarEdicion(edicion.idEdicion)">Eliminar </button></td>
         </tr>

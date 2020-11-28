@@ -22,6 +22,7 @@ export class EdicionesComponent implements OnInit {
 
   closeResult: string;
   formEdicion: FormGroup;
+  idPeriodo:string;
 
   constructor(
     private modalService: NgbModal,
@@ -138,10 +139,11 @@ export class EdicionesComponent implements OnInit {
   }
 
 
-  editarEdicion(id: string) {
+  editarEdicion(id: string,idPeriodo:string) {
     this.banderaEditar = true;
     console.log("editar" + id)
-
+    this.idPeriodo=idPeriodo;
+  
     this.edicionEditar = this.ediciones.find(edicion => edicion.idEdicion === id);
     this.formEdicion.patchValue({
       'id': this.edicionEditar.idEdicion,

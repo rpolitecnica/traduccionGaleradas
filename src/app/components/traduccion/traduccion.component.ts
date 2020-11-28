@@ -196,10 +196,10 @@ export class TraduccionComponent implements OnInit {
           title: 'Correcto',
           text: 'Traducción realizada correctamente.'
         });
-
+  
         this.router.navigate(['listado-traducciones']);
       })
-
+ 
 
     }
     fileReader.readAsText(this.file);

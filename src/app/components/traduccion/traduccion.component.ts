@@ -191,13 +191,13 @@ export class TraduccionComponent implements OnInit {
 
       this.traduccionService.traducirFile(this.jsonPrueba).subscribe((res)=>{
         console.log("response ",res);
-       /*swal.fire({
+       swal.fire({
           icon: 'success',
           title: 'Correcto',
           text: 'Traducción realizada correctamente.'
         });
 
-        this.router.navigate(['listado-traducciones']);*/
+        this.router.navigate(['listado-traducciones']);
       })
 
 

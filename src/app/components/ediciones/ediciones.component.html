@@ -18,7 +18,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Nueva edición</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Edición</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="borrarCampos()">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -94,9 +94,9 @@
           <td>{{edicion.descripcion}}</td>
           <td>{{edicion.fechaPublicacion}}</td>
           <td class="text-center">
-            <button class="btn btn-info" (click)=editarEdicion(edicion.id)> Editar</button></td>
+            <button class="btn btn-info" (click)=editarEdicion(edicion.idEdicion)> Editar</button></td>
              <td class="text-center">
-               <button class="btn btn-danger" (click)="eliminarEdicion(edicion.id)">Eliminar </button></td>
+               <button class="btn btn-danger" (click)="eliminarEdicion(edicion.idEdicion)">Eliminar </button></td>
         </tr>
       </tbody>
 

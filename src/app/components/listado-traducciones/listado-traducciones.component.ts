@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ListadoTraduccionesService } from '../listado-traducciones/listado-traducciones.service';
 
 import { Traducciones } from '../models/traducciones.model';
 import swal from 'sweetalert2';
+declare var $: any;
 @Component({
   selector: 'app-listado-traducciones',
   templateUrl: './listado-traducciones.component.html',
@@ -11,11 +12,17 @@ import swal from 'sweetalert2';
 })
 export class ListadoTraduccionesComponent implements OnInit {
 
-
+  formTraduccion: FormGroup;
   traducciones: Array<Traducciones>;
   constructor(private fb: FormBuilder, private listadoTraducciones: ListadoTraduccionesService) { }
 
   ngOnInit(): void {
+
+    this.formTraduccion = this.fb.group({
+      'id': [null],
+      'idEdicion': [null],
+      'titulo': [null],
+    });
     this.obtenerTraducciones();
   }
 
@@ -39,6 +46,16 @@ export class ListadoTraduccionesComponent implements OnInit {
     window.open(url);
   }
 
+  borrarCampos(){
+
+  }
+  guardarTraduccion(){
+
+  }
+
+  editarTraduccion(){
+    $('#exampleModal').modal('show');
+  }
   eliminarTraduccion(id: string) {
 
     console.log("eliminar " + id);

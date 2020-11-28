@@ -142,9 +142,9 @@ export class EdicionesComponent implements OnInit {
     this.banderaEditar = true;
     console.log("editar" + id)
 
-    this.edicionEditar = this.ediciones.find(edicion => edicion.id === id);
+    this.edicionEditar = this.ediciones.find(edicion => edicion.idEdicion === id);
     this.formEdicion.patchValue({
-      'id': this.edicionEditar.id,
+      'id': this.edicionEditar.idEdicion,
       'titulo': this.edicionEditar.titulo,
       'volumen': this.edicionEditar.numero,
       'numero': this.edicionEditar.volumen,

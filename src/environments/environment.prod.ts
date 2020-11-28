@@ -1,6 +1,6 @@
 const getUrl = window.location;
 //const HOST_API = 'http://localhost:3000';
-const HOST_API = 'https://traducciongaleradasback.herokuapp.com/';
+const HOST_API = 'https://traducciongaleradasback.herokuapp.com';
 
 export const environment = {
   production: true,

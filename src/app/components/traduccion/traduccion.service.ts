@@ -16,7 +16,7 @@ export class TraduccionService {
   }
 
   traducirFile(JsonGalerada:String){
-    let urlApi='http://localhost:3000/api/traducir';
+    let urlApi='https://traducciongaleradasback.herokuapp.com/api/traducir';
     return this.httClient.post(urlApi,JsonGalerada);
   }
 

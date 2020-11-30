@@ -26,4 +26,8 @@ export class UsuariosService {
   editarUsuario(id:string,usuario:Usuarios){
     return this.httClient.put(environment.services.baseUrl+"/"+id,usuario)
   }
+
+  obtenerPerfiles(){
+    return this.httClient.get(environment.services.baseUrlPerfiles);
+  }
 }

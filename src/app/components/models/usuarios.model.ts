@@ -4,4 +4,5 @@ export interface Usuarios{
     primerApellido:string;
     segundoApellido:string;
     correoElectronico:string;
+    idPerfil:string;
 }

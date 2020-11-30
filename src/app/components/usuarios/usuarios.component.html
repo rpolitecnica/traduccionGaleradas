@@ -54,6 +54,14 @@
                 <input type="text" id="email_address" class="form-control" formControlName="correoElectronico" name="email-address" required autofocus>
               </div>
             </div>
+            <div class="form-group row">
+              <label for="email_address" class="col-md-4 col-form-label text-md-right">Perfil</label>
+              <div class="col-md-8">
+                <select name="selectPeriodo" formControlName="idPerfil" class="form-control">
+                  <option [value]="perfil.id" *ngFor="let perfil of perfiles" [selected]="perfil.id === idPerfil">{{perfil.descripcion}}</option>
+               </select>
+              </div>
+            </div>
           </form>
         </div>
         <div class="modal-footer">
@@ -76,6 +84,7 @@
                     <th>Nombres</th>
                     <th>Apellidos</th>
                     <th>Correo Electrónico</th>
+                    <th>Perfil</th>
                     <th class="text-center"></th>
                     <th class="text-center"></th>
                 </tr>
@@ -85,15 +94,14 @@
                 <td>{{usuario.nombres}}</td>
                 <td>{{usuario.primerApellido+" "+usuario.segundoApellido}}</td>
                 <td>{{usuario.correoElectronico}}</td>
+                <td>{{usuario.perfil}}</td>
                 <td class="text-center">
-                    <button class="btn btn-info" (click)=editarUsuario(usuario.id)> Editar</button></td>
+                    <button class="btn btn-info" (click)=editarUsuario(usuario.id,usuario.idPerfil)> Editar</button></td>
                      <td class="text-center">
                        <button class="btn btn-danger" (click)="eliminarUsuario(usuario.id)">Eliminar </button></td>
             </tr>
         </table>
 
     </div>
-    <div class="col-sm-2">
 
-    </div>
 </div>

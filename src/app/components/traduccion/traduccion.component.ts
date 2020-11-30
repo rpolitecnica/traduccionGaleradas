@@ -198,7 +198,13 @@ export class TraduccionComponent implements OnInit {
         });
   
         this.router.navigate(['listado-traducciones']);
-      })
+      }, err => {
+        swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Ha ocurrido un error en la traducción'
+        });
+      });
  
 
     }

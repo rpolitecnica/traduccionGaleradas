@@ -19,6 +19,7 @@ export class BienvenidaComponent implements OnInit {
 
   
   ngOnInit(): void {
+    console.log("bienvenida")
     this.obtenerInformacionUsuario();
   }
 
@@ -28,7 +29,8 @@ export class BienvenidaComponent implements OnInit {
       console.log("response usuarios" + data);
       this.usuario=data;
       console.log(this.usuario.primerApellido);
-     
+      
+      sessionStorage.setItem('idPerfil', this.usuario.idPerfil);
 
     });
   }

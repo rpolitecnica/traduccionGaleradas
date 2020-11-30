@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { MenuService } from '../menu/menu.service';
+import { Menu } from '../models/menu.model';
+
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -8,23 +11,29 @@ import { Component, OnInit } from '@angular/core';
 export class MenuComponent implements OnInit {
 
 recargaBandera:boolean=false;
-  constructor() { 
+   menues:Array<Menu>;
+  constructor(private service: MenuService) { 
    
   }
 
   opcionesMenu=[
-    {name:"Inicio",route:"/bienvenida",icon:"fa fa-home"},
-    {name:"Usuarios",route:"/usuarios",icon:"fa fa-user"},
-    {name:"Traducción Galeradas",route:"/traduccion",icon:"fa fa-book"},
-    {name:"Listado Traducciones",route:"/listado-traducciones",icon:"fa fa-history"},
-    {name:"Ediciones",route:"/ediciones",icon:"fa fa-list"},
-    {name:"Correos",route:"/correos",icon:"fa fa-envelope"},
-    {name:"Cerrar Sesión",route:"/login.component",icon:"fa fa-sign-out"},
   ]
   ngOnInit(): void {
-    
+
+    this.obtenerInformacionMenu();
+    console.log("menu")
   }
 
+  obtenerInformacionMenu(){
+    this.service.obtenerOpciones(sessionStorage.getItem('idPerfil')).subscribe((data: any) => {
+      console.log("response usuarios" + data);
+      this.menues=data;
+      for (let menu of this.menues) {
+        this.opcionesMenu.push({name:menu.modulo,route:menu.ruta,icon:menu.icono})
+      }
+      
 
+    });
+  }
 
 }

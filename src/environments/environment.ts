@@ -3,8 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 const getUrl = window.location;
-//const HOST_API = getUrl.protocol + '//' + getUrl.host;
-const HOST_API = 'http://localhost:3000';
+const HOST_API = getUrl.protocol + '//' + getUrl.host;
+//const HOST_API = 'http://localhost:3000';
 export const environment = {
   production: false,
   HOST_API,
@@ -14,6 +14,9 @@ export const environment = {
     baseUrlPeriodos: `${HOST_API}/api/periodos`,
     baseUrlCorreos: `${HOST_API}/api/correos`,
     baseUrlTraducciones: `${HOST_API}/api/traducciones`,
+    baseUrlTraducir: `${HOST_API}/api/traducir`,
+    baseUrlMenu: `${HOST_API}/api/menu`,
+    baseUrlPerfiles: `${HOST_API}/api/perfiles`,
   }
 };
 

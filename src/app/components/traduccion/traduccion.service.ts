@@ -16,8 +16,7 @@ export class TraduccionService {
   }
 
   traducirFile(JsonGalerada:String){
-    let urlApi='https://traducciongaleradasback.herokuapp.com/api/traducir';
-    return this.httClient.post(urlApi,JsonGalerada);
+    return this.httClient.post(environment.services.baseUrlTraducir,JsonGalerada);
   }
 
   obtenerEdiciones(){

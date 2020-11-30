@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UsuariosService} from '../usuarios/usuarios.service'
 import{Usuarios} from '../models/usuarios.model'
+import{Perfil} from '../models/perfil.model'
 import { FormBuilder, FormGroup } from '@angular/forms';
 import swal from 'sweetalert2';
 
@@ -16,9 +17,11 @@ declare var $: any;
 export class UsuariosComponent implements OnInit {
 
   usuarios: Array<Usuarios>;
+  perfiles: Array<Perfil>;
   formUsuario: FormGroup;
   public usuarioEditar: Usuarios;
   banderaEditar: boolean = false;
+  idPerfil:string;
   constructor(
     private service:UsuariosService,
     private fb: FormBuilder,
@@ -26,12 +29,14 @@ export class UsuariosComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenerUsuarios();
+    this.obtenerPerfiles();
     this.formUsuario = this.fb.group({
       'id': [null],
       'nombres': [null],
       'primerApellido': [null],
       'segundoApellido': [null],
       'correoElectronico': [null],
+      'idPerfil': [null],
     });
   }
 
@@ -44,15 +49,25 @@ export class UsuariosComponent implements OnInit {
   }
 
 
+  obtenerPerfiles(){
+    this.service.obtenerPerfiles().subscribe((data:any)=>{
+      console.log("response usuarios"+data);
+     this.perfiles=data;
+     
+    });
+  }
+
+
   ocultarmodal(){
     $('#exampleModal').modal('hide');
     $('body').removeClass('modal-open');
     $('.modal-backdrop').remove();
   }
 
-  editarUsuario(id: string) {
+  editarUsuario(id: string,idPerfil:string) {
     this.banderaEditar = true;
     console.log("editar" + id)
+    this.idPerfil=idPerfil;
 
     this.usuarioEditar = this.usuarios.find(usuario => usuario.id === id);
     this.formUsuario.patchValue({
@@ -60,7 +75,8 @@ export class UsuariosComponent implements OnInit {
       'nombres': this.usuarioEditar.nombres,
       'primerApellido': this.usuarioEditar.primerApellido,
       'segundoApellido': this.usuarioEditar.segundoApellido,
-      'correoElectronico': this.usuarioEditar.correoElectronico
+      'correoElectronico': this.usuarioEditar.correoElectronico,
+      'idPerfil': this.usuarioEditar.idPerfil
     });
 
     $('#exampleModal').modal('show');
@@ -75,6 +91,7 @@ export class UsuariosComponent implements OnInit {
     this.formUsuario.controls['primerApellido'].patchValue('');
     this.formUsuario.controls['segundoApellido'].patchValue('');
     this.formUsuario.controls['correoElectronico'].patchValue('');
+    this.formUsuario.controls['idPerfil'].patchValue('');
     
     this.banderaEditar=false;
   }

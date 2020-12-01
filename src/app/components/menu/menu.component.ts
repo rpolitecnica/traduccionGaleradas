@@ -23,6 +23,8 @@ recargaBandera:boolean=false;
 
     this.obtenerInformacionMenu();
     console.log("menu")
+    this.opcionesMenu=[
+    ]
     this.opcionesMenu=this.utilService.opcionesMenu;
   }
 
@@ -30,8 +32,14 @@ recargaBandera:boolean=false;
     this.service.obtenerOpciones(sessionStorage.getItem('idPerfil')).subscribe((data: any) => {
       console.log("response usuarios" + data);
       this.menues=data;
+      this.utilService.opcionesMenu=[];
+      this.opcionesMenu=[
+      ]
       for (let menu of this.menues) {
+      if(!this.opcionesMenu.includes({name:menu.modulo,route:menu.ruta,icon:menu.icono})){
         this.opcionesMenu.push({name:menu.modulo,route:menu.ruta,icon:menu.icono})
+      }
+       
       }
       
 

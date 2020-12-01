@@ -49,8 +49,9 @@ export class BienvenidaComponent implements OnInit {
     this.service.obtenerOpciones(sessionStorage.getItem('idPerfil')).subscribe((data: any) => {
       console.log("response usuarios" + data);
       this.menues=data;
+      this.utilService.opcionesMenu=[];
       for (let menu of this.menues) {
-        console.log("llenando opciones menu")
+
         this.utilService.opcionesMenu.push({name:menu.modulo,route:menu.ruta,icon:menu.icono})
       }
       

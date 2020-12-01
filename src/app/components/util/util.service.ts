@@ -14,6 +14,7 @@ export class UtilService {
   constructor(private httClient:HttpClient) { }
 
   obtenerOpciones(idPerfil:string){
+    
    return this.httClient.get(environment.services.baseUrlMenu+"/"+idPerfil);
    };
 

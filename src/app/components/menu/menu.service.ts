@@ -13,4 +13,10 @@ export class MenuService {
   obtenerOpciones(idPerfil:string){
     return this.httClient.get(environment.services.baseUrlMenu+"/"+idPerfil)
    };
+
+
+  obtenerUsuario(correoElectronico:string){
+    return this.httClient.get(environment.services.baseUrl+"/"+correoElectronico)
+   };
+
 }

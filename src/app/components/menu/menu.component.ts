@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { MenuService } from '../menu/menu.service';
 import { Menu } from '../models/menu.model';
+import { Usuarios } from '../models/usuarios.model';
 import { UtilService } from '../util/util.service';
 
 @Component({
@@ -13,6 +14,7 @@ export class MenuComponent implements OnInit {
 
 recargaBandera:boolean=false;
    menues:Array<Menu>;
+   usuario:Usuarios;
   constructor(private service: MenuService,private utilService:UtilService) { 
    
   }
@@ -29,21 +31,36 @@ recargaBandera:boolean=false;
   }
 
   obtenerInformacionMenu(){
-    this.service.obtenerOpciones(sessionStorage.getItem('idPerfil')).subscribe((data: any) => {
+    this.service.obtenerUsuario(sessionStorage.getItem('email')).subscribe((data: any) => {
       console.log("response usuarios" + data);
-      this.menues=data;
-      this.utilService.opcionesMenu=[];
-      this.opcionesMenu=[
-      ]
-      for (let menu of this.menues) {
-      if(!this.opcionesMenu.includes({name:menu.modulo,route:menu.ruta,icon:menu.icono})){
-        this.opcionesMenu.push({name:menu.modulo,route:menu.ruta,icon:menu.icono})
-      }
-       
-      }
+      this.usuario=data;
+      console.log(this.usuario.primerApellido);
       
+      sessionStorage.setItem('idPerfil', this.usuario.idPerfil);
+
+
+      if(sessionStorage.getItem('idPerfil')!=null){
+        this.service.obtenerOpciones(sessionStorage.getItem('idPerfil')).subscribe((data: any) => {
+          console.log("response usuarios" + data);
+          this.menues=data;
+          this.utilService.opcionesMenu=[];
+          this.opcionesMenu=[
+          ]
+          for (let menu of this.menues) {
+          if(!this.opcionesMenu.includes({name:menu.modulo,route:menu.ruta,icon:menu.icono})){
+            this.opcionesMenu.push({name:menu.modulo,route:menu.ruta,icon:menu.icono})
+          }
+           
+          }
+          
+    
+        });
+      }
 
     });
+
+
+
   }
 
 }

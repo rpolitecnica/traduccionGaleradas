@@ -40,7 +40,7 @@ export class BienvenidaComponent implements OnInit {
         this.perfil="Editor";
       }
 
-      this.obtenerInformacionMenu();
+      //this.obtenerInformacionMenu();
 
     });
   }

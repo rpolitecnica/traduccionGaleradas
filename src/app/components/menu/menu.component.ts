@@ -12,44 +12,56 @@ import { UtilService } from '../util/util.service';
 })
 export class MenuComponent implements OnInit {
 
-recargaBandera:boolean=false;
-   menues:Array<Menu>;
-   usuario:Usuarios;
-  constructor(private service: MenuService,private utilService:UtilService) { 
-   
+  recargaBandera: boolean = false;
+  menues: Array<Menu>;
+  usuario: Usuarios;
+  constructor(private service: MenuService, private utilService: UtilService) {
+
   }
 
-  opcionesMenu=[
+  opcionesMenu = [
   ]
   ngOnInit(): void {
 
     this.obtenerInformacionMenu();
     console.log("menu")
-    this.opcionesMenu=this.utilService.opcionesMenu;
+    this.opcionesMenu = this.utilService.opcionesMenu;
   }
 
-  obtenerInformacionMenu(){
+  obtenerInformacionMenu() {
     this.service.obtenerUsuario(sessionStorage.getItem('email')).subscribe((data: any) => {
       console.log("response usuarios" + data);
-      this.usuario=data;
+      this.usuario = data;
       console.log(this.usuario.primerApellido);
-      
+
       sessionStorage.setItem('idPerfil', this.usuario.idPerfil);
 
 
-      if(sessionStorage.getItem('idPerfil')!=null){
-        this.service.obtenerOpciones(sessionStorage.getItem('idPerfil')).subscribe((data: any) => {
-          console.log("response usuarios" + data);
-          this.menues=data;
-          for (let menu of this.menues) {
-          if(!this.opcionesMenu.includes({name:menu.modulo,route:menu.ruta,icon:menu.icono})){
-            this.opcionesMenu.push({name:menu.modulo,route:menu.ruta,icon:menu.icono})
-          }
-           
-          }
-          
-    
-        });
+      if (sessionStorage.getItem('idPerfil') != null) {
+        if(this.opcionesMenu.length==0){
+          this.service.obtenerOpciones(sessionStorage.getItem('idPerfil')).subscribe((data: any) => {
+            console.log("response usuarios" + data);
+            this.menues = data;
+            for (let menu of this.menues) {
+              var anadir: false;
+  
+  
+              console.log(this.opcionesMenu.includes({ name: menu.modulo, route: menu.ruta, icon: menu.icono }));
+                if (!this.opcionesMenu.includes({ name: menu.modulo, route: menu.ruta, icon: menu.icono })) {
+                  this.opcionesMenu.push({ name: menu.modulo, route: menu.ruta, icon: menu.icono })
+                }
+             
+              
+              
+  
+  
+  
+            }
+  
+  
+          });
+        }
+       
       }
 
     });

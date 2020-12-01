@@ -42,7 +42,7 @@ export class UsuariosComponent implements OnInit {
     this.validarModulos();
     this.formUsuario = this.fb.group({
       'id': [null],
-      'nombres': ['',[Validators.pattern('^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ ]+$')]],
+      'nombres': [null],
       'primerApellido': [null],
       'segundoApellido': [null],
       'correoElectronico': [null],

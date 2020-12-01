@@ -4,4 +4,5 @@ export interface Menu{
     modulo:string;
     ruta:string;
     icono:string;
+    componente:string;
 }

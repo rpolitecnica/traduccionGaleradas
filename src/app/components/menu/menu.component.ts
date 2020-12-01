@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { MenuService } from '../menu/menu.service';
 import { Menu } from '../models/menu.model';
+import { UtilService } from '../util/util.service';
 
 @Component({
   selector: 'app-menu',
@@ -12,7 +13,7 @@ export class MenuComponent implements OnInit {
 
 recargaBandera:boolean=false;
    menues:Array<Menu>;
-  constructor(private service: MenuService) { 
+  constructor(private service: MenuService,private utilService:UtilService) { 
    
   }
 
@@ -22,6 +23,7 @@ recargaBandera:boolean=false;
 
     this.obtenerInformacionMenu();
     console.log("menu")
+    this.opcionesMenu=this.utilService.opcionesMenu;
   }
 
   obtenerInformacionMenu(){

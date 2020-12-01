@@ -64,15 +64,15 @@
                 <td>{{traduccion.tituloArticulo}}</td>
                 <td>{{traduccion.fechaTraduccion}}</td>
                 <td class="text-center">
-                    <button class="btn btn-primary" (click)=editarTraduccion(traduccion.id,traduccion.idEdicion)> Editar</button></td>
+                    <button class="btn btn-primary" (click)=editarTraduccion(traduccion.id,traduccion.idEdicion)><span class="fa fa-pencil" aria-hidden="true"></span> Editar</button></td>
                 <td class="text-center">
-                    <button class="btn btn-info" (click)=visualizarDocumento(traduccion.xmlTraduccion)> Visualizar
+                    <button class="btn btn-info" (click)=visualizarDocumento(traduccion.xmlTraduccion)><span class="fa fa-eye" aria-hidden="true"></span> Visualizar
                         documento XML</button></td>
                         <td class="text-center">
-                            <button class="btn btn-info" (click)=visualizarDocumentoHTML(traduccion.xmlTraduccion)> Visualizar
+                            <button class="btn btn-info" (click)=visualizarDocumentoHTML(traduccion.xmlTraduccion)><span class="fa fa-eye" aria-hidden="true"></span> Visualizar
                                 documento HTML</button></td>
                 <td class="text-center">
-                    <button class="btn btn-danger" (click)="eliminarTraduccion(traduccion.id)">Eliminar </button></td>
+                    <button class="btn btn-danger" (click)="eliminarTraduccion(traduccion.id)"> <span class="fa fa-trash" aria-hidden="true"></span> Eliminar </button></td>
             </tr>
         </table>
 

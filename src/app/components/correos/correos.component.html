@@ -11,8 +11,8 @@
             </div>
         </div>
 
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-            Registrar Correo Enviado
+        <button type="button" class="btn btn-primary" style="margin-bottom: 18px;" data-toggle="modal" data-target="#exampleModal">
+          <span class="fa fa-plus" aria-hidden="true"></span> Registrar Correo Enviado
            </button>
 
 
@@ -81,9 +81,9 @@
                 <td>{{correo.mensaje}}</td>
                 <td>{{correo.fecha}}</td>
                 <td class="text-center">
-                    <button class="btn btn-info" (click)=editarCorreo(correo.id)> Editar</button></td>
+                    <button class="btn btn-info" (click)=editarCorreo(correo.id)><span class="fa fa-pencil" aria-hidden="true"></span>  Editar</button></td>
                      <td class="text-center">
-                       <button class="btn btn-danger" (click)="eliminarCorreo(correo.id)">Eliminar </button></td>
+                       <button class="btn btn-danger" (click)="eliminarCorreo(correo.id)"><span class="fa fa-trash" aria-hidden="true"></span> Eliminar </button></td>
             </tr>
         </table>
 

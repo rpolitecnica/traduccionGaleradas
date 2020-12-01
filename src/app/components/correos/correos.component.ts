@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Correos } from '../models/correos.model'
 import { CorreosService } from '../correos/correos.service';
 import swal from 'sweetalert2';
+import { UtilService } from '../util/util.service';
+import { Router } from '@angular/router';
+import { Menu } from '../models/menu.model';
 declare var $: any;
 
 @Component({
@@ -16,11 +19,16 @@ export class CorreosComponent implements OnInit {
   formCorreo: FormGroup;
   public correoEditar: Correos;
   banderaEditar: boolean = false;
+
+  menues:Array<Menu>;
+  validacionComponente:boolean=false;
   constructor(private service: CorreosService,
-    private fb: FormBuilder,) { }
+    private fb: FormBuilder,   private router: Router ,
+    private utilService:UtilService) { }
 
   ngOnInit(): void {
     this.obtenerCorreos();
+    this.validarModulos();
     this.formCorreo = this.fb.group({
       'id': [null],
       'asunto': [null],
@@ -58,6 +66,25 @@ export class CorreosComponent implements OnInit {
   }
 
 
+  validarModulos(){
+    this.utilService.obtenerOpciones(sessionStorage.getItem('idPerfil')).subscribe((data: any) => {
+      console.log("response usuarios" + data);
+      this.menues=data;
+      for (let menu of this.menues) {
+       if(this.router.url.replace("/","")==menu.componente){
+         this.validacionComponente=true;
+       }
+      }
+      if(!this.validacionComponente){
+        swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'No tienes permiso a este módulo'
+        });
+        this.router.navigate(['bienvenida']);
+      }
+    });
+  }
   validarCampos() {
     if (this.formCorreo.status == "INVALID") {
 

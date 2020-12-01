@@ -8,8 +8,8 @@
       </div>
   </div>
 
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-     Nueva Edición
+    <button type="button" style="margin-bottom: 18px;" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+      <span class="fa fa-plus" aria-hidden="true"></span> Nueva Edición
     </button>
 
     <!-- Modal -->
@@ -94,9 +94,9 @@
           <td>{{edicion.descripcion}}</td>
           <td>{{edicion.fechaPublicacion}}</td>
           <td class="text-center">
-            <button class="btn btn-info" (click)=editarEdicion(edicion.idEdicion,edicion.idPeriodo)> Editar</button></td>
+            <button class="btn btn-info" (click)=editarEdicion(edicion.idEdicion,edicion.idPeriodo)><span class="fa fa-pencil" aria-hidden="true"></span> Editar</button></td>
              <td class="text-center">
-               <button class="btn btn-danger" (click)="eliminarEdicion(edicion.idEdicion)">Eliminar </button></td>
+               <button class="btn btn-danger" (click)="eliminarEdicion(edicion.idEdicion)"><span class="fa fa-trash" aria-hidden="true"></span> Eliminar </button></td>
         </tr>
       </tbody>
 

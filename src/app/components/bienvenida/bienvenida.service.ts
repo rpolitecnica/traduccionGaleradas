@@ -13,4 +13,8 @@ export class BienvenidaService {
   obtenerUsuario(correoElectronico:string){
     return this.httClient.get(environment.services.baseUrl+"/"+correoElectronico)
    };
+
+   obtenerOpciones(idPerfil:string){
+    return this.httClient.get(environment.services.baseUrlMenu+"/"+idPerfil)
+   };
 }

@@ -2,8 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import {UsuariosService} from '../usuarios/usuarios.service'
 import{Usuarios} from '../models/usuarios.model'
 import{Perfil} from '../models/perfil.model'
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import swal from 'sweetalert2';
+import { Router } from '@angular/router';
+
+import {UtilService} from '../util/util.service';
+import { Menu } from '../models/menu.model';
 
 declare var $: any;
 
@@ -22,21 +26,54 @@ export class UsuariosComponent implements OnInit {
   public usuarioEditar: Usuarios;
   banderaEditar: boolean = false;
   idPerfil:string;
+
+  menues:Array<Menu>;
+  validacionComponente:boolean=false;
   constructor(
     private service:UsuariosService,
     private fb: FormBuilder,
+    private router: Router ,
+    private utilService:UtilService
   ) { }
 
   ngOnInit(): void {
     this.obtenerUsuarios();
     this.obtenerPerfiles();
+    this.validarModulos();
     this.formUsuario = this.fb.group({
       'id': [null],
-      'nombres': [null],
+      'nombres': ['',[Validators.pattern('^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ ]+$')]],
       'primerApellido': [null],
       'segundoApellido': [null],
       'correoElectronico': [null],
       'idPerfil': [null],
+    });
+
+
+
+
+
+
+   
+  }
+
+  validarModulos(){
+    this.utilService.obtenerOpciones(sessionStorage.getItem('idPerfil')).subscribe((data: any) => {
+      console.log("response usuarios" + data);
+      this.menues=data;
+      for (let menu of this.menues) {
+       if(this.router.url.replace("/","")==menu.componente){
+         this.validacionComponente=true;
+       }
+      }
+      if(!this.validacionComponente){
+        swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'No tienes permiso a este módulo'
+        });
+        this.router.navigate(['bienvenida']);
+      }
     });
   }
 

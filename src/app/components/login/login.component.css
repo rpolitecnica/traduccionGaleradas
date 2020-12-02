@@ -82,9 +82,9 @@ html {
   /* FORM TYPOGRAPHY*/
 
   #btnLogin{
-    background-color: #56baed;
+    background-color: #EEBB1B;
     border: none;
-    color: white;
+    color: rgb(8, 8, 8);
     padding: 15px 80px;
     text-align: center;
     text-decoration: none;
@@ -104,7 +104,7 @@ html {
   }
 
   #btnLogin:hover{
-    background-color: #39ace7;
+    background-color: #EEBB1B;
   }
 
   #btnLogin:active{

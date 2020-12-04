@@ -7,6 +7,7 @@ import { TraduccionService } from '../traduccion/traduccion.service'
 
 import swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { UtilComponent } from '../util/util.component';
 
 @Component({
   selector: 'app-traduccion',
@@ -42,10 +43,11 @@ export class TraduccionComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder, private traduccionService: TraduccionService,private router: Router,
+    private utilComponent:UtilComponent
   ) { }
 
   ngOnInit(): void {
-
+    this.utilComponent.validarSesion();
     this.formTraduccion = this.fb.group({
       'id': [null],
       'idEdicion': [null],
@@ -191,7 +193,8 @@ export class TraduccionComponent implements OnInit {
 
       this.traduccionService.traducirFile(this.jsonPrueba).subscribe((res)=>{
         console.log("response ",res);
-       swal.fire({
+       
+        swal.fire({
           icon: 'success',
           title: 'Correcto',
           text: 'Traducción realizada correctamente.'
@@ -221,7 +224,7 @@ export class TraduccionComponent implements OnInit {
 
 
   obtenerEdiciones() {
-    this.traduccionService.obtenerEdiciones().subscribe((data: any) => {
+    this.traduccionService.obtenerEdicionesPorUsuario(sessionStorage.getItem('idUsuario')).subscribe((data: any) => {
       console.log("listado " + data[0].titulo);
       this.ediciones = data;
     });

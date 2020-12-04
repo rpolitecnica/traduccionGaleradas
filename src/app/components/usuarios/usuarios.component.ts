@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 
 import {UtilService} from '../util/util.service';
 import { Menu } from '../models/menu.model';
+import {UtilComponent} from '../util/util.component'
 
 declare var $: any;
 
@@ -26,6 +27,8 @@ export class UsuariosComponent implements OnInit {
   public usuarioEditar: Usuarios;
   banderaEditar: boolean = false;
   idPerfil:string;
+  validacionCorreo:boolean;
+  correoOriginal:string;
 
   menues:Array<Menu>;
   validacionComponente:boolean=false;
@@ -33,10 +36,12 @@ export class UsuariosComponent implements OnInit {
     private service:UsuariosService,
     private fb: FormBuilder,
     private router: Router ,
-    private utilService:UtilService
+    private utilService:UtilService,
+    private utilComponent:UtilComponent
   ) { }
 
   ngOnInit(): void {
+    this.utilComponent.validarSesion();
     this.obtenerUsuarios();
     this.obtenerPerfiles();
     this.validarModulos();
@@ -101,17 +106,16 @@ export class UsuariosComponent implements OnInit {
     $('.modal-backdrop').remove();
   }
 
-  editarUsuario(id: string,idPerfil:string) {
+  editarUsuario(id: string,idPerfil:string,correoElectronico:string) {
     this.banderaEditar = true;
     console.log("editar" + id)
     this.idPerfil=idPerfil;
+    this.correoOriginal=correoElectronico;
 
     this.usuarioEditar = this.usuarios.find(usuario => usuario.id === id);
     this.formUsuario.patchValue({
       'id': this.usuarioEditar.id,
       'nombres': this.usuarioEditar.nombres,
-      'primerApellido': this.usuarioEditar.primerApellido,
-      'segundoApellido': this.usuarioEditar.segundoApellido,
       'correoElectronico': this.usuarioEditar.correoElectronico,
       'idPerfil': this.usuarioEditar.idPerfil
     });
@@ -125,39 +129,55 @@ export class UsuariosComponent implements OnInit {
   borrarCampos(){
     this.formUsuario.controls['id'].patchValue('');
     this.formUsuario.controls['nombres'].patchValue('');
-    this.formUsuario.controls['primerApellido'].patchValue('');
-    this.formUsuario.controls['segundoApellido'].patchValue('');
     this.formUsuario.controls['correoElectronico'].patchValue('');
     this.formUsuario.controls['idPerfil'].patchValue('');
     
     this.banderaEditar=false;
   }
   guardarUsuario(){
-    if (this.formUsuario.status == "VALID") {
-      this.ocultarmodal();
-      this.service.guardarUsuario(this.formUsuario.value).subscribe((response)=>{
-        console.log("respuyesta " + response)
-  
-        this.borrarCampos();
-        swal.fire({
-          icon: 'success',
-          title: 'Correcto',
-          text: 'Registro almacenado correctamente'
-        });
-        this.obtenerUsuarios();
-  
-      })
-    }else{
+    this.validarCorreoUsuario(this.formUsuario.controls['correoElectronico'].value).subscribe((response)=>{
       swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Debes completar todos los campos'
+        text: 'El correo ya se encuentra registrado'
       });
-    }
+    }, err => {
+      if (this.formUsuario.status == "VALID") {
+        this.ocultarmodal();
+        this.service.guardarUsuario(this.formUsuario.value).subscribe((response)=>{
+          console.log("respuyesta " + response)
+    
+          this.borrarCampos();
+          swal.fire({
+            icon: 'success',
+            title: 'Correcto',
+            text: 'Registro almacenado correctamente'
+          });
+          this.obtenerUsuarios();
+    
+        })
+      }else{
+        swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Debes completar todos los campos'
+        });
+      }
+    });
+  
+    
+ 
+
+    
+  
     
   }
 
 
+
+  validarCorreoUsuario(correoElectronico:string){
+    return this.service.obtenerUsuarioPorCorreo(correoElectronico);
+  }
 
  
   eliminarUsuario(id: string) {
@@ -186,6 +206,25 @@ export class UsuariosComponent implements OnInit {
   }
 
   guardarEditarUsuario() {
+    if(this.correoOriginal==this.formUsuario.controls['correoElectronico'].value){
+      this.realizarEdicionUsuario();
+    }else{
+      this.validarCorreoUsuario(this.formUsuario.controls['correoElectronico'].value).subscribe((response)=>{
+        swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'El correo ya se encuentra registrado'
+        });
+      }, err => {
+        this.realizarEdicionUsuario();
+      })
+    }
+
+
+  
+  }
+
+  realizarEdicionUsuario(){
     if (this.formUsuario.status == "VALID") {
       if (this.banderaEditar == true) {
         console.log("id editar" + this.formUsuario.controls['id'].value);
@@ -210,7 +249,6 @@ export class UsuariosComponent implements OnInit {
         text: 'Debes completar todos los campos'
       });
     }
-  
   }
   
 

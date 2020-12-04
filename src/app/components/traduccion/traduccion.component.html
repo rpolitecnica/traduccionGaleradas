@@ -9,13 +9,14 @@
             <div class="main-div">
                 <div class="panel">
                     <h2>Traducción de Galeradas</h2>
-                    <p>Por favor seleccione el archivo a traducir</p>
+                    <p>Por favor seleccione el archivo .htm a traducir</p>
                 </div>
 
                 <form [formGroup]="formTraduccion">
                     <div class="form-group">
 
                         <select name="selectEdicion" formControlName="idEdicion" class="form-control" [(ngModel)]="edicionSeleccionada">
+                            <option [ngValue]="undefined" disabled  selected> Seleccione una edición </option>
                             <option [ngValue]="edicion" *ngFor="let edicion of ediciones">{{edicion.titulo}}</option>
                         </select>
                     </div>

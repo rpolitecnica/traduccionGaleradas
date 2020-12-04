@@ -5,6 +5,8 @@ import { TraduccionService } from '../traduccion/traduccion.service'
 import { Traducciones } from '../models/traducciones.model';
 import swal from 'sweetalert2';
 import { Ediciones } from '../models/ediciones.model';
+import { UtilComponent } from '../util/util.component';
+import { Router } from '@angular/router';
 declare var $: any;
 @Component({
   selector: 'app-listado-traducciones',
@@ -16,36 +18,56 @@ export class ListadoTraduccionesComponent implements OnInit {
   formTraduccion: FormGroup;
   traducciones: Array<Traducciones>;
   ediciones: Array<Ediciones>;
-  edicionSeleccionada:Ediciones;
-  idTraduccion:string;
-  idEdicion:string;
-  constructor(private fb: FormBuilder, private listadoTraducciones: ListadoTraduccionesService,private traduccionService: TraduccionService,) { }
+  edicionSeleccionada: Ediciones;
+  idTraduccion: string;
+  idEdicion: string;
+  constructor(private fb: FormBuilder,
+    private listadoTraducciones: ListadoTraduccionesService,
+    private traduccionService: TraduccionService,
+    private utilComponent: UtilComponent,
+    private router: Router,) { }
 
   ngOnInit(): void {
-
+    this.utilComponent.validarSesion();
     this.formTraduccion = this.fb.group({
       'id': [null],
       'idEdicion': [null],
       'titulo': [null],
     });
-    this.obtenerTraducciones();
+    this.obtenerTraduccionesPorUsuarioAnio();
     this.obtenerEdiciones();
   }
-
-
-  obtenerTraducciones() {
-    this.listadoTraducciones.obtenerTraducciones().subscribe((data: any) => {
+  obtenerTraduccionesPorUsuarioAnio() {
+    this.listadoTraducciones.obtenerTraduccionesPorUsuarioAnio(sessionStorage.getItem('idUsuario')).subscribe((data: any) => {
       console.log("listadoTraducciones " + data[0].titulo);
       this.traducciones = data;
     });
   }
+
+
+  obtenerTraducciones() {
+    this.listadoTraducciones.obtenerTraduccionesPorUsuario(sessionStorage.getItem('idUsuario')).subscribe((data: any) => {
+      console.log("listadoTraducciones " + data[0].titulo);
+      this.traducciones = data;
+    });
+  }
+
+  verTraducciones(idEdicion:string,fechaPublicacion:string,volumen:string,numero:string,periodo:string){
+    console.log("ver traducciones");
+    sessionStorage.setItem('idEdicion', idEdicion);
+    sessionStorage.setItem('fechaPublicacion', fechaPublicacion);
+    sessionStorage.setItem('volumen', volumen);
+    sessionStorage.setItem('numero', numero);
+    sessionStorage.setItem('periodo', periodo);
+    this.router.navigate(['listado-articulos']);
+  }
   obtenerEdiciones() {
-    this.traduccionService.obtenerEdiciones().subscribe((data: any) => {
+    this.traduccionService.obtenerEdicionesPorUsuario(sessionStorage.getItem('idUsuario')).subscribe((data: any) => {
       console.log("listado " + data[0].titulo);
       this.ediciones = data;
     });
   }
-  
+
 
   visualizarDocumentoHTML(xmlDocumento: any) {
     const blob = new Blob([xmlDocumento], { type: 'text/html' });
@@ -58,13 +80,57 @@ export class ListadoTraduccionesComponent implements OnInit {
     window.open(url);
   }
 
-  borrarCampos(){
+  borrarCampos() {
 
   }
-  guardarEdicionTraduccion(){
+
+  obtenerMes(mes: string) {
+    switch (mes) {
+      case "January":
+        //Declaraciones ejecutadas cuando el resultado de expresión coincide con el valor1
+        return "Enero";
+      case "February":
+        //Declaraciones ejecutadas cuando el resultado de expresión coincide con el valor2
+        return "Febrero";
+      case "March":
+        //Declaraciones ejecutadas cuando el resultado de expresión coincide con valorN
+        return "Marzo";
+      case "April":
+        //Declaraciones ejecutadas cuando el resultado de expresión coincide con valorN
+        return "Abril";
+      case "May":
+        //Declaraciones ejecutadas cuando el resultado de expresión coincide con valorN
+        return "Mayo";
+      case "June":
+        //Declaraciones ejecutadas cuando el resultado de expresión coincide con valorN
+        return "Junio";
+      case "July":
+        //Declaraciones ejecutadas cuando el resultado de expresión coincide con valorN
+        return "Julio";
+      case "August":
+        //Declaraciones ejecutadas cuando el resultado de expresión coincide con valorN
+        return "Agosto";
+      case "September":
+        //Declaraciones ejecutadas cuando el resultado de expresión coincide con valorN
+        return "Septiembre";
+      case "October":
+        //Declaraciones ejecutadas cuando el resultado de expresión coincide con valorN
+        return "Octubre";
+        case "November":
+        //Declaraciones ejecutadas cuando el resultado de expresión coincide con valorN
+        return "Noviembre";
+        case "December":
+        //Declaraciones ejecutadas cuando el resultado de expresión coincide con valorN
+        return "Diciembre";
+      default:
+        //Declaraciones ejecutadas cuando ninguno de los valores coincide con el valor de la expresión
+        return ""
+    }
+  }
+  guardarEdicionTraduccion() {
     console.log(this.edicionSeleccionada);
     this.ocultarmodal();
-    this.listadoTraducciones.modificarTraduccion(this.idTraduccion,this.edicionSeleccionada).subscribe((response) => {
+    this.listadoTraducciones.modificarTraduccion(this.idTraduccion, this.edicionSeleccionada).subscribe((response) => {
       console.log(response);
       swal.fire({
         icon: 'success',
@@ -76,14 +142,14 @@ export class ListadoTraduccionesComponent implements OnInit {
     })
   }
 
-  editarTraduccion(idTraduccion:string,idEdicion:string){
-    this.idTraduccion=idTraduccion;
-    this.idEdicion=idEdicion;
+  editarTraduccion(idTraduccion: string, idEdicion: string) {
+    this.idTraduccion = idTraduccion;
+    this.idEdicion = idEdicion;
     $('#exampleModal').modal('show');
 
   }
 
-  ocultarmodal(){
+  ocultarmodal() {
     $('#exampleModal').modal('hide');
     $('body').removeClass('modal-open');
     $('.modal-backdrop').remove();
@@ -102,7 +168,7 @@ export class ListadoTraduccionesComponent implements OnInit {
       confirmButtonText: 'Sí, Eliminar!'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.listadoTraducciones.eliminarTraduccion(id).subscribe((response) =>  {
+        this.listadoTraducciones.eliminarTraduccion(id).subscribe((response) => {
           this.obtenerTraducciones();
           swal.fire({
             icon: 'success',

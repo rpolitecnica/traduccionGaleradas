@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BienvenidaService } from '../bienvenida/bienvenida.service';
 import { Menu } from '../models/menu.model';
 import { Usuarios } from '../models/usuarios.model';
+import { UtilComponent } from '../util/util.component';
 import { UtilService } from '../util/util.service';
 
 @Component({
@@ -18,11 +19,12 @@ export class BienvenidaComponent implements OnInit {
   perfil:string;
   menues:Array<Menu>;
   
-  constructor(private service: BienvenidaService,private utilService:UtilService) { }
+  constructor(private service: BienvenidaService,private utilService:UtilService,private utilComponent:UtilComponent) { }
 
   
   ngOnInit(): void {
     console.log("bienvenida")
+    this.utilComponent.validarSesion();
     this.obtenerInformacionUsuario();
   }
 
@@ -31,14 +33,11 @@ export class BienvenidaComponent implements OnInit {
     this.service.obtenerUsuario(sessionStorage.getItem('email')).subscribe((data: any) => {
       console.log("response usuarios" + data);
       this.usuario=data;
-      console.log(this.usuario.primerApellido);
+      
       
       sessionStorage.setItem('idPerfil', this.usuario.idPerfil);
-      if(this.usuario.idPerfil=="1"){
-         this.perfil="Administrador";
-      }else{
-        this.perfil="Editor";
-      }
+      this.perfil=this.usuario.descripcion;
+
 
       //this.obtenerInformacionMenu();
 

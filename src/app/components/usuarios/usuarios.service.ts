@@ -11,6 +11,10 @@ export class UsuariosService {
 
   constructor(private httClient:HttpClient) { }
 
+
+  obtenerUsuarioPorCorreo(correoElectronico:string){
+    return this.httClient.get(environment.services.baseUrl+"/"+correoElectronico);
+  }
   obtenerUsuarios(){
     return this.httClient.get(environment.services.baseUrl);
   }

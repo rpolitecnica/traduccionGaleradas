@@ -14,6 +14,8 @@ import { FormsModule , ReactiveFormsModule} from '@angular/forms';
 import { CorreosComponent } from './components/correos/correos.component';
 import { ListadoTraduccionesComponent } from './components/listado-traducciones/listado-traducciones.component';
 import { BienvenidaComponent } from './components/bienvenida/bienvenida.component';
+import { UtilComponent } from './components/util/util.component';
+import { ListadoArticulosComponent } from './components/listado-articulos/listado-articulos.component';
 
 
 
@@ -28,6 +30,8 @@ import { BienvenidaComponent } from './components/bienvenida/bienvenida.componen
     CorreosComponent,
     ListadoTraduccionesComponent,
     BienvenidaComponent,
+    UtilComponent,
+    ListadoArticulosComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,7 +41,7 @@ import { BienvenidaComponent } from './components/bienvenida/bienvenida.componen
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [UtilComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

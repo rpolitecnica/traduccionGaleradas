@@ -21,6 +21,10 @@ export class EdicionesService {
    return this.httClient.get(environment.services.baseUrlEdiciones)
   };
 
+  obtenerEdicionesPorUsuario(idUsuario:string){
+    return this.httClient.get(environment.services.baseUrlEdiciones+"/"+idUsuario)
+   };
+
   eliminarEdicion(id:string){
     return this.httClient.delete(environment.services.baseUrlEdiciones+"/"+id);
   }

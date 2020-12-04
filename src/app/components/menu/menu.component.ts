@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 import { MenuService } from '../menu/menu.service';
 import { Menu } from '../models/menu.model';
 import { Usuarios } from '../models/usuarios.model';
+import { UtilComponent } from '../util/util.component';
 import { UtilService } from '../util/util.service';
 
 @Component({
@@ -15,26 +18,38 @@ export class MenuComponent implements OnInit {
   recargaBandera: boolean = false;
   menues: Array<Menu>;
   usuario: Usuarios;
-  constructor(private service: MenuService, private utilService: UtilService) {
+  constructor(private service: MenuService, 
+    private utilService: UtilService, 
+    private router: Router,
+    private utilComponent:UtilComponent) {
 
   }
 
   opcionesMenu = [
   ]
   ngOnInit(): void {
-
+    this.utilComponent.validarSesion();
     this.obtenerInformacionMenu();
     console.log("menu")
     this.opcionesMenu = this.utilService.opcionesMenu;
+  }
+
+  cerrarSesion(){
+    console.log("cerrar sesion");
+    sessionStorage.removeItem("email");
+    console.log(environment.urlFront)
+    window.location.href=environment.urlFront+"/login.component";
+    //this.router.navigate(['login.component']);
   }
 
   obtenerInformacionMenu() {
     this.service.obtenerUsuario(sessionStorage.getItem('email')).subscribe((data: any) => {
       console.log("response usuarios" + data);
       this.usuario = data;
-      console.log(this.usuario.primerApellido);
+      
 
       sessionStorage.setItem('idPerfil', this.usuario.idPerfil);
+      sessionStorage.setItem('idUsuario', this.usuario.id);
 
 
       if (sessionStorage.getItem('idPerfil') != null) {

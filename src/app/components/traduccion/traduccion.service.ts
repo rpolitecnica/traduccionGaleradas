@@ -19,6 +19,9 @@ export class TraduccionService {
     return this.httClient.post(environment.services.baseUrlTraducir,JsonGalerada);
   }
 
+  obtenerEdicionesPorUsuario(idUsuario:string){
+    return this.httClient.get(environment.services.baseUrlEdiciones+"/"+idUsuario)
+   };
   obtenerEdiciones(){
     return this.httClient.get(environment.services.baseUrlEdiciones)
    };

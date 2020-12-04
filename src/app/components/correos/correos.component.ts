@@ -6,6 +6,7 @@ import swal from 'sweetalert2';
 import { UtilService } from '../util/util.service';
 import { Router } from '@angular/router';
 import { Menu } from '../models/menu.model';
+import { UtilComponent } from '../util/util.component';
 declare var $: any;
 
 @Component({
@@ -24,9 +25,11 @@ export class CorreosComponent implements OnInit {
   validacionComponente:boolean=false;
   constructor(private service: CorreosService,
     private fb: FormBuilder,   private router: Router ,
-    private utilService:UtilService) { }
+    private utilService:UtilService,
+    private utilComponent:UtilComponent) { }
 
   ngOnInit(): void {
+    this.utilComponent.validarSesion();
     this.obtenerCorreos();
     this.validarModulos();
     this.formCorreo = this.fb.group({

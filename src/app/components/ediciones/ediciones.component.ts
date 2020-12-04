@@ -5,6 +5,7 @@ import { EdicionesService } from 'src/app/components/ediciones/ediciones.service
 import { Ediciones } from 'src/app/components/models/ediciones.model'
 import { Periodos } from 'src/app/components/models/periodos.model'
 import swal from 'sweetalert2';
+import { UtilComponent } from '../util/util.component';
 
 declare var $: any;
 @Component({
@@ -27,19 +28,23 @@ export class EdicionesComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private edicionesService: EdicionesService,
-    private fb: FormBuilder,) {
+    private fb: FormBuilder,
+    private utilComponent:UtilComponent) {
 
   }
 
   ngOnInit() {
+    this.utilComponent.validarSesion();
     this.formEdicion = this.fb.group({
       'id': [null],
+      'idUsuario':sessionStorage.getItem('idUsuario'),
       'titulo': [null],
       'volumen': [null],
       'numero': [null],
       'idPeriodo': [null],
       'fechaPublicacion': [null]
     });
+    
 
     this.obtenerEdiciones();
     this.obtenerPeriodos();
@@ -72,8 +77,8 @@ export class EdicionesComponent implements OnInit {
   }
 
   obtenerEdiciones() {
-    this.edicionesService.obtenerEdiciones().subscribe((data: any) => {
-      console.log("listado " + data[0].titulo);
+    this.edicionesService.obtenerEdicionesPorUsuario(sessionStorage.getItem('idUsuario')).subscribe((data: any) => {
+     // console.log("listado " + data[0].titulo);
       this.ediciones = data;
     });
   }

@@ -5,6 +5,11 @@
             <a [routerLink]="menu.route"><span class="tooltip">{{menu.name}}</span></a>
 			
         </li>
+        <li class="active">
+            <a (click)=cerrarSesion()> <i class="fa fa-sign-out"></i></a>
+            <a (click)=cerrarSesion()><span class="tooltip">Cerrar Sesión</span></a>
+			
+        </li>
 	</ul>
 </nav>
 <div>

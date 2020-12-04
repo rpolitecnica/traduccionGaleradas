@@ -149,13 +149,13 @@ export class EdicionesComponent implements OnInit {
     console.log("editar" + id)
     this.idPeriodo=idPeriodo;
   
-    this.edicionEditar = this.ediciones.find(edicion => edicion.idEdicion === id);
+    this.edicionEditar = this.ediciones.find(edicion => edicion.id === id);
     this.formEdicion.patchValue({
-      'id': this.edicionEditar.idEdicion,
+      'id': this.edicionEditar.id,
       'titulo': this.edicionEditar.titulo,
       'volumen': this.edicionEditar.numero,
       'numero': this.edicionEditar.volumen,
-      'idPeriodo': this.edicionEditar.idPeriodo,
+      'idPeriodo': this.edicionEditar.idPeriodo, 
       'fechaPublicacion': this.edicionEditar.fechaPublicacion
     });
     $('#exampleModal').modal('show');

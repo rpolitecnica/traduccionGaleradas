@@ -23,6 +23,11 @@ export class ListadoTraduccionesService {
     return this.httClient.get(environment.services.baseUrlEdicionesYear+"/"+idUsuario)
    };
 
+   obtenerTraduccionesPorUsuarioAnioIdEdicion(Anio:string){
+    return this.httClient.get(environment.services.baseUrlEdicionesYearIdEdicion+"/"+Anio)
+   };
+
+
    eliminarTraduccion(id:string){
     return this.httClient.delete(environment.services.baseUrlTraducciones+"/"+id);
    };

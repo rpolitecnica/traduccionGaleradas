@@ -3,16 +3,16 @@
 
   <div class="col-sm-12">
     <div class="main-div">
-      <div class="panel">
+      <div class="panel" style="">
         <h2>Listado de Traducciones Realizadas</h2>
       </div>
     </div>
-    <div *ngFor='let traduccion of traducciones'>
+    <div *ngFor='let edicionRecorrer of arrayEdicionesRecorrer'>
       <hr>
-      <h4>{{traduccion.fechaPublicacion}}</h4>
-      <div>
-        <button (click)=verTraducciones(traduccion.id,traduccion.fechaPublicacion,traduccion.volumen,traduccion.numero,traduccion.descripcion)>  Vol {{traduccion.volumen}}, Núm. {{traduccion.numero}}: {{traduccion.descripcion}}</button>
-        <h6>Vol. {{traduccion.volumen}}, Núm. {{traduccion.numero}}: Publicado en {{obtenerMes(traduccion.mesPublicacion)}} de {{traduccion.fechaPublicacion}}.</h6>
+      <h4>{{edicionRecorrer.anio}}</h4>
+      <div *ngFor='let edicion of edicionRecorrer.ediciones'>
+        <button (click)=verTraducciones(edicion.id,edicion.fechaPublicacion,edicion.volumen,edicion.numero,edicion.descripcion)>  Vol {{edicion.volumen}}, Núm. {{edicion.numero}}: {{edicion.descripcion}}</button>
+        <h6>Vol. {{edicion.volumen}}, Núm. {{edicion.numero}}: Publicado en {{obtenerMes(edicion.mesPublicacion)}} de {{edicion.fechaPublicacion}}.</h6>
       </div>
       <hr>
     </div>

@@ -94,9 +94,9 @@
           <td>{{edicion.descripcion}}</td>
           <td>{{edicion.fechaPublicacion}}</td>
           <td class="text-center">
-            <button class="btn botonEditar" (click)=editarEdicion(edicion.idEdicion,edicion.idPeriodo)><span class="fa fa-pencil" aria-hidden="true"></span> Editar</button></td>
+            <button class="btn botonEditar" (click)=editarEdicion(edicion.id,edicion.idPeriodo)><span class="fa fa-pencil" aria-hidden="true"></span> Editar</button></td>
              <td class="text-center">
-               <button class="btn botonEliminar" (click)="eliminarEdicion(edicion.idEdicion)"><span class="fa fa-trash" aria-hidden="true"></span> Eliminar </button></td>
+               <button class="btn botonEliminar" (click)="eliminarEdicion(edicion.id)"><span class="fa fa-trash" aria-hidden="true"></span> Eliminar </button></td>
         </tr>
       </tbody>
 

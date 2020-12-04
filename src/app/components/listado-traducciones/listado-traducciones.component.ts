@@ -14,13 +14,15 @@ declare var $: any;
   styleUrls: ['./listado-traducciones.component.css']
 })
 export class ListadoTraduccionesComponent implements OnInit {
-
+  JsonEdiciones: any = null;;
   formTraduccion: FormGroup;
   traducciones: Array<Traducciones>;
   ediciones: Array<Ediciones>;
+  edicionesAnio: Array<Ediciones>;
   edicionSeleccionada: Ediciones;
   idTraduccion: string;
   idEdicion: string;
+  arrayEdicionesRecorrer:any;
   constructor(private fb: FormBuilder,
     private listadoTraducciones: ListadoTraduccionesService,
     private traduccionService: TraduccionService,
@@ -38,10 +40,41 @@ export class ListadoTraduccionesComponent implements OnInit {
     this.obtenerEdiciones();
   }
   obtenerTraduccionesPorUsuarioAnio() {
+   
     this.listadoTraducciones.obtenerTraduccionesPorUsuarioAnio(sessionStorage.getItem('idUsuario')).subscribe((data: any) => {
-      console.log("listadoTraducciones " + data[0].titulo);
+
       this.traducciones = data;
+     
+      var arrayEdicionesCompleto=[]
+      
+      for(let traduccion of data){
+       
+        console.log("fechaPublicacion " + traduccion.fechaPublicacion);
+       
+        this.listadoTraducciones.obtenerTraduccionesPorUsuarioAnioIdEdicion(sessionStorage.getItem('idUsuario')+"-"+traduccion.fechaPublicacion).subscribe((data2: any) => {
+          var JsonEdicionesCompleto={anio:"",ediciones:[]};
+          JsonEdicionesCompleto.anio=traduccion.fechaPublicacion;
+          console.log("data 2");
+          console.log(data2);
+          //this.edicionesAnio = data2;
+          JsonEdicionesCompleto.ediciones=data2;
+          console.log("JsonEdicionesCompleto");
+          console.log(JsonEdicionesCompleto);
+          arrayEdicionesCompleto.push(JsonEdicionesCompleto);
+          console.log("arrayEdicionesCompleto");
+          console.log(arrayEdicionesCompleto);
+          
+        });
+        this.arrayEdicionesRecorrer=arrayEdicionesCompleto;
+      console.log("ediciones Recorrer");
+        console.log(this.arrayEdicionesRecorrer);
+      }
+     
+     
+      
     });
+
+    
   }
 
 

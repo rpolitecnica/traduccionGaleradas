@@ -39,6 +39,7 @@ export class ListadoArticulosComponent implements OnInit {
       'idEdicion': [null],
       'titulo': [null],
     });
+    this.idEdicion=sessionStorage.getItem('idEdicion');
   }
 
   ocultarmodal() {

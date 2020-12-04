@@ -50,6 +50,7 @@ export class LoginComponent implements OnInit {
         console.log('Email: ' + profile.getEmail());
 
         sessionStorage.setItem('email', profile.getEmail());
+        sessionStorage.setItem('imagen', profile.getImageUrl());
 
         this.service.validarUsuarios(profile.getEmail()).subscribe(response=>{
           console.log("response");

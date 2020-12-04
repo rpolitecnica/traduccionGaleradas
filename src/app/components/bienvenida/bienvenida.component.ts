@@ -18,6 +18,7 @@ export class BienvenidaComponent implements OnInit {
   usuario:Usuarios;
   perfil:string;
   menues:Array<Menu>;
+  imagen:string;
   
   constructor(private service: BienvenidaService,private utilService:UtilService,private utilComponent:UtilComponent) { }
 
@@ -26,6 +27,7 @@ export class BienvenidaComponent implements OnInit {
     console.log("bienvenida")
     this.utilComponent.validarSesion();
     this.obtenerInformacionUsuario();
+    this.imagen=sessionStorage.getItem('imagen');
   }
 
 

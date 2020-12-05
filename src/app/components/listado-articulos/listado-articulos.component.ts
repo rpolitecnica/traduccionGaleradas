@@ -82,13 +82,19 @@ export class ListadoArticulosComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.listadoArticulosService.eliminarTraduccion(id).subscribe((response) => {
-          this.obtenerTraduccionesPorIdEdicionAnio();
+          
+          //location.reload();
           swal.fire({
             icon: 'success',
             title: 'Correcto',
             text: 'Registro eliminado correctamente'
-          });
+          }).then(function() {
+            location.reload();
+            //this.obtenerTraduccionesPorIdEdicionAnio();
         });
+         
+        });
+        
 
       }
     })

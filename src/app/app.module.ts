@@ -39,7 +39,8 @@ import { ListadoArticulosComponent } from './components/listado-articulos/listad
     HttpClientModule,
     NgbModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    
   ],
   providers: [UtilComponent],
   bootstrap: [AppComponent]

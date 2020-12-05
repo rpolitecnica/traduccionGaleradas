@@ -28,6 +28,7 @@ export class CorreosComponent implements OnInit {
     private utilService:UtilService,
     private utilComponent:UtilComponent) { }
 
+    
   ngOnInit(): void {
     this.utilComponent.validarSesion();
     this.obtenerCorreos();

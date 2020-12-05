@@ -14,8 +14,18 @@
         <div *ngFor='let traduccion of traducciones'>
             <div class="row">
                 <hr>
-                <div class="col-sm-8">
-                    <h5><a href="" class="colorLink"> {{traduccion.tituloArticulo}}</a> </h5>
+                <table class="col-sm-12">
+                    <td> <h5><a class="colorLink"> {{traduccion.tituloArticulo}}</a> </h5></td>
+                    <td><button class="btn botonEditar" (click)=editarTraduccion(traduccion.id,traduccion.idEdicion)><span class="fa fa-pencil" aria-hidden="true"></span>
+                        Editar</button></td>
+                        <td><button class="btn botonNuevo" (click)=visualizarDocumento(traduccion.xmlTraduccion) style="margin-left: 19px;"><span class="fa fa-eye"
+                            aria-hidden="true"></span> Descargar
+                        documento XML</button></td>
+                            <td><button class="btn botonEliminar" (click)="eliminarTraduccion(traduccion.id)" style="margin-left: 19px;"> <span class="fa fa-trash"
+                                aria-hidden="true"></span> Eliminar </button></td>
+                </table>
+                <!--<div class="col-sm-8">
+                    <h5><a class="colorLink"> {{traduccion.tituloArticulo}}</a> </h5>
                 </div>
                 <div class="col-sm-4">
                     <button class="btn botonEditar" (click)=editarTraduccion(traduccion.id,traduccion.idEdicion)><span class="fa fa-pencil" aria-hidden="true"></span>
@@ -28,7 +38,7 @@
                     <button class="btn botonEliminar" (click)="eliminarTraduccion(traduccion.id)" style="margin-left: 19px;"> <span class="fa fa-trash"
                             aria-hidden="true"></span> Eliminar </button>
 
-                </div>
+                </div>-->
                 <hr>
             </div>
             <hr>

@@ -102,6 +102,8 @@ export class ListadoArticulosComponent implements OnInit {
   }
   guardarEdicionTraduccion() {
     console.log(this.edicionSeleccionada);
+    this.edicionSeleccionada.idEdicion=this.edicionSeleccionada.id;
+    //this.edicionSeleccionada.id=this.idTraduccion;
     this.ocultarmodal();
     this.listadoArticulosService.modificarTraduccion(this.idTraduccion, this.edicionSeleccionada).subscribe((response) => {
       console.log(response);
@@ -109,9 +111,12 @@ export class ListadoArticulosComponent implements OnInit {
         icon: 'success',
         title: 'Correcto',
         text: 'Registro editado correctamente'
-      });
+      }).then(function() {
+        location.reload();
+        //this.obtenerTraduccionesPorIdEdicionAnio();
+    });
 
-      this.obtenerTraduccionesPorIdEdicionAnio();
+      //this.obtenerTraduccionesPorIdEdicionAnio();
     })
   }
   editarTraduccion(idTraduccion: string, idEdicion: string) {

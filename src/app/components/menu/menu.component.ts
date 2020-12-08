@@ -38,7 +38,13 @@ export class MenuComponent implements OnInit {
     console.log("cerrar sesion");
     sessionStorage.removeItem("email");
     console.log(environment.urlFront)
-    window.location.href=environment.urlFront+"/login.component";
+
+    /*this.service.cerrarSesion().subscribe((response)=>{
+      window.location.href=environment.urlFront+"/login.component";
+    });*/
+    
+    window.location.href = "https://mail.google.com/mail/u/0/?logout&hl=en";
+   
     //this.router.navigate(['login.component']);
   }
 

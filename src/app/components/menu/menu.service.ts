@@ -19,4 +19,8 @@ export class MenuService {
     return this.httClient.get(environment.services.baseUrl+"/"+correoElectronico)
    };
 
+   cerrarSesion(){
+     return this.httClient.get("https://mail.google.com/mail/u/0/?logout&h1=en");
+   }
+
 }

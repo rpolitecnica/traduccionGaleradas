@@ -66,7 +66,7 @@
                     <select name="selectEdicion" formControlName="idEdicion" class="form-control"
                       [(ngModel)]="edicionSeleccionada">
                       <option [ngValue]="edicion" *ngFor="let edicion of ediciones"
-                        [selected]="edicion.idEdicion === idEdicion">{{edicion.titulo}}</option>
+                        [selected]="edicion.id === idEdicion">{{edicion.titulo}}</option>
                     </select>
                   </div>
                 </div>

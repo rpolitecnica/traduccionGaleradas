@@ -34,10 +34,16 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="email_address" class="col-md-4 col-form-label text-md-right">Correo Electrónico</label>
+              <label  for="email_address" class="col-md-4 col-form-label text-md-right">Correo Electrónico</label>
               <div class="col-md-8">
-                <input type="email" id="email_address" class="form-control" formControlName="correoElectronico" name="email-address" required autofocus>
+                <input [class.is-invalid] = "formUsuario.get('correoElectronico').invalid && formUsuario.get('correoElectronico').touched" type="email" id="email_address" class="form-control" formControlName="correoElectronico" name="email-address" required autofocus>
+                <div *ngIf="(getCorreoElectronico.invalid && getCorreoElectronico.touched) || getCorreoElectronico.dirty">
+                  <small *ngIf="getCorreoElectronico.errors?.required" class="text-danger">el Correo Electrónico es requerido</small>
+                  <!--question mark(?) is a safe navigation operator-->
+                  <small *ngIf="getCorreoElectronico.errors?.pattern" class="text-danger">Por favor dígite un Correo Electrónico válido</small>
+                </div>
               </div>
+
             </div>
             <div class="form-group row">
               <label for="email_address" class="col-md-4 col-form-label text-md-right">Perfil</label>
@@ -52,10 +58,10 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
           <div *ngIf="!banderaEditar">
-            <button type="button" class="btn btn-primary" (click)="guardarUsuario()">Guardar</button>
+            <button type="button" [disabled]="getCorreoElectronico.invalid" class="btn btn-primary" (click)="guardarUsuario()">Guardar</button>
           </div>
           <div *ngIf="banderaEditar">
-            <button type="button" class="btn btn-primary" (click)="guardarEditarUsuario()">Editar</button>
+            <button type="button" [disabled]="getCorreoElectronico.invalid" class="btn btn-primary" (click)="guardarEditarUsuario()">Editar</button>
           </div>
           
         </div>

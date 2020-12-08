@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import {UsuariosService} from '../usuarios/usuarios.service'
 import{Usuarios} from '../models/usuarios.model'
 import{Perfil} from '../models/perfil.model'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
 import {UtilService} from '../util/util.service';
 import { Menu } from '../models/menu.model';
 import {UtilComponent} from '../util/util.component'
+
 
 declare var $: any;
 
@@ -50,7 +51,9 @@ export class UsuariosComponent implements OnInit {
       'nombres': [null],
       'primerApellido': [null],
       'segundoApellido': [null],
-      'correoElectronico': [null],
+      'correoElectronico':new FormControl('',[
+        Validators.required,
+        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       'idPerfil': [null],
     });
 
@@ -61,6 +64,10 @@ export class UsuariosComponent implements OnInit {
 
    
   }
+
+  get getCorreoElectronico(){
+    return this.formUsuario.get('correoElectronico')
+    }
 
   validarModulos(){
     this.utilService.obtenerOpciones(sessionStorage.getItem('idPerfil')).subscribe((data: any) => {

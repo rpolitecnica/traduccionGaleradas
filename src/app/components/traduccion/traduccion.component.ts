@@ -100,7 +100,7 @@ export class TraduccionComponent implements OnInit {
             var palabra = this.documento.getElementsByClassName("WordSection" + j);
 
             let arrayContenidos = new Array();
-            let contentBody = { SubtituloSeccion: 's', ContenidoSeccion: arrayContenidos };
+            let contentBody = { SubtituloSeccion: '', ContenidoSeccion: arrayContenidos };
 
 
             for (var i = 0; i < palabra[0].childNodes.length; i++) {
